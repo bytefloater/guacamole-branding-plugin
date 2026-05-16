@@ -1,0 +1,3442 @@
+/* -- Global base ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: none !important;
+    letter-spacing: -0.01em;
+    padding: 0;
+    padding-left: 16px;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar              { width: 6px; height: 6px; }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-thumb        { background: rgba(255,255,255,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover  { background: rgba(255,255,255,0.22); }
+
+/* Float-label behavior — login form only */
+.labeled-field .field-header label       { display: none; }
+.labeled-field.empty .field-header label { display: inline; }
+
+/* Restore label visibility inside settings/preferences (not the login form) */
+.settings .labeled-field .field-header label,
+.preferences .labeled-field .field-header label,
+.attributes .labeled-field .field-header label {
+    display: inline !important;
+}
+
+.app-name { text-transform: none !important; }
+
+
+/* -- Header / nav bar ------------------------------------------------------- */
+.header {
+    background-color: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+    box-shadow: none !important;
+    color: var(--text) !important;
+    align-items: center !important;
+}
+.header:not(h2) {
+    min-height: 46px !important;
+}
+
+/* Sub-headers (e.g. section headers inside the main view) */
+.header:not(.ng-hide) ~ * .header,
+.header:not(.ng-hide) ~ .header {
+    /* background-color: var(--surface) !important; */
+    border-top: 1px solid var(--border) !important;
+    /* border-bottom: 1px solid var(--border) !important; */
+    align-items: center !important;
+}
+
+/* Vertically centre the h2 text — remove padding-based fake-centering */
+.header:not(.ng-hide) ~ * .header h2,
+.header:not(.ng-hide) ~ .header h2 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 1 !important;
+}
+
+.header .app-logo,
+.header .app-name {
+    color: var(--text) !important;
+}
+
+/* Search / filter bar */
+.header .filter input {
+    height: 100%;
+    background-color: var(--input-bg) !important;
+    background-image: var(--icon-search) !important;
+    background-repeat: no-repeat !important;
+    background-position: 5px 50% !important;
+    background-size: 18px !important;
+    border: none !important;
+    border-left: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px;
+    padding-left: 28px !important;
+}
+
+.header .filter input:focus {
+    outline: none;
+    background-color: var(--surface-overlay) !important;
+}
+
+.header .filter input::placeholder {
+    color: var(--text-muted);
+}
+
+.help.view .header {
+    margin-bottom: 16px;
+}
+
+
+/* -- Help View -- */
+.help.view pre {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--surface) !important;
+}
+.help.view .footnotes {
+    border-top: 1px solid var(--border);
+}
+
+
+
+/* -- User menu dropdown ---------------------------------------------------- */
+
+/* Wrapper — stretch to fill the header height */
+.user-menu {
+    align-self: stretch !important;
+    display: flex !important;
+    align-items: stretch !important;
+}
+
+/* Hide the duplicate user-menu in the sub-header (All Connections) only */
+.recent-connections ~ .header .user-menu {
+    display: none !important;
+}
+
+/* Trigger — fills the full header height, acts as a button */
+.menu-dropdown {
+    position: relative !important;
+    border-left: 1px solid var(--border) !important;
+    display: flex !important;
+    align-items: center !important;
+    align-self: stretch !important;
+    padding: 0 32px 0 12px !important;
+    color: var(--text) !important;
+    background-color: transparent !important;
+    cursor: pointer !important;
+}
+
+.menu-dropdown:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Username — custom user icon replaces Guacamole's guac-user.svg */
+.menu-dropdown .menu-title {
+    background-image: var(--icon-user) !important;
+    background-repeat: no-repeat !important;
+    background-position: 0 50% !important;
+    background-size: 16px 16px !important;
+    padding-left: 22px !important;
+    padding-right: 0 !important;
+    font-size: 13px !important;
+    color: var(--text) !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+/* Down chevron — absolutely positioned within the dropdown, right-aligned */
+.menu-dropdown .menu-indicator {
+    position: absolute !important;
+    right: 8px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%23ffffff' stroke-opacity='0.6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* Dropdown panel */
+.menu-dropdown.open .menu-contents,
+.menu-contents {
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-top: none !important;
+    border-radius: 0 0 8px 8px !important;
+    box-shadow: 0 12px 16px -4px rgba(0, 0, 0, 0.25) !important;
+    color: var(--text) !important;
+    min-width: 220px !important;
+    overflow: hidden !important;
+    z-index: 999;
+}
+
+/* General menu link reset */
+.menu-contents a,
+.menu-contents .menu-item {
+    background-color: transparent !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+}
+
+.menu-contents a:hover,
+.menu-contents .menu-item:hover,
+.menu-dropdown .menu-contents li a:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text) !important;
+}
+
+/* -- Profile header -- */
+.user-menu .menu-dropdown .menu-contents .profile {
+    border-bottom: 1px solid var(--border) !important;
+    margin-top: 0 !important;
+    padding: 14px 16px !important;
+    color: var(--text) !important;
+}
+
+.user-menu .menu-dropdown .menu-contents .profile .full-name a {
+    color: var(--text) !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    text-decoration: none !important;
+}
+
+.user-menu .menu-dropdown .menu-contents .profile .organizational-role,
+.user-menu .menu-dropdown .menu-contents .profile .organization {
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    margin-top: 1px !important;
+}
+
+/* -- Nav tabs (Home / Settings) -- */
+.user-menu .menu-dropdown .menu-contents .page-list {
+    padding: 0 4px !important;
+}
+
+.user-menu .menu-dropdown .menu-contents .page-list-level {
+    display: flex !important;
+    gap: 0 !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: none !important;
+    flex-wrap: nowrap;
+}
+
+.user-menu .menu-dropdown .menu-contents .page-list a:not(.logout) {
+    display: inline-block !important;
+    padding: 9px 12px 6px !important;
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+    border-bottom: 3px solid transparent !important;
+    background: transparent !important;
+    transition: color var(--transition), border-color var(--transition) !important;
+    width: 100%;
+    text-align: center;
+}
+
+.user-menu .menu-dropdown .menu-contents .page-list a.current {
+    color: var(--accent) !important;
+    border-bottom: 2px solid var(--accent) !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+
+.user-menu .menu-dropdown .menu-contents .page-list a:not(.logout):not(.current):hover {
+    color: var(--text) !important;
+    background: transparent !important;
+}
+
+.user-menu .menu-dropdown .menu-contents li {
+    width: 100%;
+}
+
+
+/* -- Logout item -- */
+.menu-dropdown a.logout {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 9px 16px !important;
+    border-top: 1px solid var(--border) !important;
+    background-image: none !important;
+    color: var(--text) !important;
+    font-size: 13px !important;
+    text-decoration: none !important;
+}
+
+.menu-dropdown a.logout::before {
+    content: "" !important;
+    display: inline-block !important;
+    width: 15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
+    background-image: var(--icon-logout) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+    opacity: 0.6;
+}
+
+
+/* -- Home page / connection list -------------------------------------------- */
+.home-page,
+.connection-list-contents,
+.section-contents {
+    background-color: var(--bg) !important;
+}
+
+.all-connections {
+    margin: 0 !important;
+}
+
+/* -- Recent connection ROWS (thumbnail left, name right) ------------------- */
+
+/* Strip Guacamole's tile margin from the container */
+.recent-connections {
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.recent-connections .connection {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    height: 52px !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    color: var(--text) !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: none !important;
+    transition: background-color var(--transition);
+}
+
+.recent-connections .connection:last-child {
+    border-bottom: none !important;
+}
+
+.recent-connections .connection:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: none !important;
+}
+
+.recent-connections .connection:hover * {
+    background-color: transparent !important;
+    border-color: inherit !important;
+    box-shadow: none !important;
+}
+
+/* Anchor fills the row — Guacamole sets it to tile width, override here */
+.recent-connections .connection > a {
+    flex: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    height: 100% !important;
+    width: auto !important;
+    padding: 0 14px !important;
+    text-decoration: none !important;
+}
+
+/* Thumbnail — fixed small preview with subtle rounded border */
+.recent-connections .connection .thumbnail,
+.recent-connections .connection .protocol {
+    flex: 0 0 auto !important;
+    width: 64px !important;
+    height: 40px !important;
+    border-radius: var(--radius-sm) !important;
+    overflow: hidden !important;
+    background-color: var(--surface-raised) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Strip any inner img borders/margins and scale proportionally */
+.recent-connections .connection .thumbnail img,
+.recent-connections .connection .protocol img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Caption — name fills remaining width */
+.recent-connections .connection .caption {
+    flex: 1 !important;
+    min-width: 0 !important;
+    background-color: transparent !important;
+    color: var(--text) !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.recent-connections .connection .caption .name {
+    color: var(--text) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* -- All Connections list — flat rows, not cards --------------------------- */
+.list-item {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    transition: background-color var(--transition);
+}
+
+.list-item:last-child {
+    border-bottom: none !important;
+}
+
+.list-item:hover,
+.list-item:not(.selected) .caption:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Override Guacamole's lime-green hover on caption rows */
+.list-item:not(.selected) .caption:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.list-item.selected {
+    background-color: var(--accent-subtle) !important;
+}
+
+/* Strip card styling from connections in list context */
+.list-item .connection,
+.list-item .connection-group {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.list-item .connection .caption,
+.list-item .connection-group .caption {
+    display: flex !important;
+    align-items: center !important;
+    height: 40px !important;
+    padding: 0 14px !important;
+    color: var(--text) !important;
+    gap: 10px;
+}
+
+.list-item .connection .caption .name,
+.list-item .connection-group .caption .name {
+    color: var(--text) !important;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* Connection group as a standalone card (outside list context) */
+.connection-group:not(.list-item .connection-group) {
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--text) !important;
+}
+
+
+/* -- Generic inputs, selects, textareas (whole app) ------------------------- */
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+    background-color: var(--input-bg) !important;
+    background-repeat: no-repeat;
+    border: 1px solid var(--input-border) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+/* Consistent 31px control height for single-line inputs and selects.
+   Padding intentionally omitted here — search inputs need extra left padding
+   for the magnifier icon and are handled by more specific rules below.      */
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),
+select {
+    height: 31px !important;
+    box-sizing: border-box !important;
+}
+
+/* Default padding — exclude search inputs which need their own left clearance */
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]):not(.search-string) {
+    padding: 0 10px !important;
+}
+
+/* Search / filter inputs — left padding clears the magnifier icon */
+input.search-string,
+.settings.section.sessions .filter input,
+.settings.section.connectionHistory form.filter input.search-string {
+    padding-left: 26px !important;
+    padding-right: 10px !important;
+}
+
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+    outline: none !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px var(--accent-glow) !important;
+}
+
+input::placeholder,
+textarea::placeholder,
+.placeholder {
+    color: var(--text-muted) !important;
+    text-shadow: none;
+}
+
+select option {
+    background: var(--surface-overlay);
+    color: var(--text);
+}
+
+/* -- Checkboxes ------------------------------------------------------------- */
+input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    border: 1.5px solid var(--border-strong) !important;
+    border-radius: 4px !important;
+    background: var(--input-bg) !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: background var(--transition), border-color var(--transition) !important;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    background-image: var(--icon-check) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 10px 10px !important;
+}
+
+/* -- Radio buttons ---------------------------------------------------------- */
+input[type="radio"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    border: 1.5px solid var(--border-strong) !important;
+    border-radius: 50% !important;
+    background: var(--input-bg) !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: background var(--transition), border-color var(--transition) !important;
+}
+
+input[type="radio"]:checked {
+    border-color: var(--accent) !important;
+    background-color: var(--accent) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='3' fill='%23ffffff'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+}
+
+/* Labeled fields (settings forms) */
+.labeled-field .field-header {
+    color: var(--text-muted) !important;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+
+/* -- Generic buttons (whole app) -------------------------------------------- */
+button,
+input[type="button"],
+input[type="submit"] {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    height: 31px !important;
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background: var(--surface-overlay) !important;
+    border-color: var(--border-strong) !important;
+}
+
+/* Primary / action buttons */
+button.action,
+input[type="submit"].action,
+.buttons input.login {
+    background: var(--accent) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    transition: background var(--transition);
+}
+
+button.action:hover,
+input[type="submit"].action:hover,
+.buttons input.login:hover {
+    background: var(--accent-hover) !important;
+}
+
+button.action:active,
+input[type="submit"].action:active,
+.buttons input.login:active {
+    background: var(--accent-active) !important;
+}
+
+.buttons input.login,
+.buttons input.continue-login {
+    text-shadow: none !important;
+}
+
+
+/* -- Dialogs / guac-modal --------------------------------------------------- */
+
+/* Full-viewport scrim — centres the card */
+guac-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    z-index: 9000 !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
+}
+
+.modal-contents {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 460px !important;
+}
+
+/* -- Card ------------------------------------------------------------------- */
+guac-modal .notification {
+    width: 100% !important;
+    max-width: 460px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+/* -- Title bar -------------------------------------------------------------- */
+guac-modal .notification .title-bar {
+    background: var(--surface-raised) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 14px 20px !important;
+}
+
+guac-modal .notification .title-bar .title {
+    color: var(--text) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+/* -- Body ------------------------------------------------------------------- */
+guac-modal .notification .body {
+    padding: 20px 20px 16px !important;
+    background: var(--surface) !important;
+}
+
+/* Message text */
+guac-modal .notification .body p.text {
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    text-align: center !important;
+}
+
+/* Countdown timer (e.g. "Reconnecting in 14 seconds...") */
+guac-modal .notification .body p.countdown-text {
+    color: var(--text-faint) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    margin: 8px 0 0 !important;
+}
+
+/* Progress bar */
+guac-modal .notification .progress {
+    height: 3px !important;
+    background: var(--border) !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    margin: 14px 0 0 !important;
+}
+
+guac-modal .notification .progress .bar {
+    height: 100% !important;
+    background: var(--accent) !important;
+    border-radius: 2px !important;
+    transition: width 1s linear !important;
+}
+
+/* -- Button footer (.buttons is the actual class Guacamole uses) ------------ */
+guac-modal .notification .buttons {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    padding: 14px 20px !important;
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    margin: 0 !important;
+}
+
+guac-modal .notification .buttons button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 31px !important;
+    padding: 0 14px !important;
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    cursor: pointer !important;
+    transition: background var(--transition), border-color var(--transition) !important;
+}
+
+guac-modal .notification .buttons button:hover {
+    background: var(--surface-overlay) !important;
+}
+
+/* Strip Guacamole sprite pseudo-elements from notification buttons */
+guac-modal .notification .buttons button::before,
+guac-modal .notification .buttons button::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Primary / only button → blue */
+guac-modal .notification .buttons button.acknowledge,
+guac-modal .notification .buttons button:only-child {
+    background: var(--accent) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+guac-modal .notification .buttons button.acknowledge:hover,
+guac-modal .notification .buttons button:only-child:hover {
+    background: var(--accent-hover) !important;
+}
+
+/* -- Colour variants -------------------------------------------------------- */
+
+/* Error */
+guac-modal .notification.error {
+    border-color: var(--error-border) !important;
+}
+guac-modal .notification.error .title-bar {
+    background: rgba(224, 57, 57, 0.12) !important;
+    border-bottom-color: var(--error-border) !important;
+}
+guac-modal .notification.error .title-bar .title {
+    color: var(--error-text) !important;
+}
+
+/* Warning */
+guac-modal .notification.warning {
+    border-color: rgba(245, 158, 11, 0.30) !important;
+}
+guac-modal .notification.warning .title-bar {
+    background: rgba(245, 158, 11, 0.10) !important;
+    border-bottom-color: rgba(245, 158, 11, 0.30) !important;
+}
+guac-modal .notification.warning .title-bar .title {
+    color: #f59e0b !important;
+}
+
+/* Connecting / info */
+guac-modal .notification.connecting {
+    border-color: rgba(0, 111, 255, 0.20) !important;
+}
+guac-modal .notification.connecting .title-bar {
+    background: rgba(0, 111, 255, 0.08) !important;
+    border-bottom-color: rgba(0, 111, 255, 0.20) !important;
+}
+guac-modal .notification.connecting .title-bar .title {
+    color: var(--accent) !important;
+}
+
+/* -- Generic .dialog / .modal fallback ------------------------------------- */
+.dialog,
+.modal {
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75) !important;
+    color: var(--text) !important;
+}
+
+.dialog-header, .modal-header {
+    background: var(--surface-raised) !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 14px 20px !important;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+}
+
+.dialog-body, .dialog-content, .modal-body {
+    background: var(--surface) !important;
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    padding: 20px !important;
+}
+
+.dialog-footer, .modal-footer {
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+    padding: 14px 20px !important;
+}
+
+
+/* -- Tabs ------------------------------------------------------------------- */
+.tab-container {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.tab {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px;
+    transition: color var(--transition);
+}
+
+.tab:hover {
+    color: var(--text) !important;
+}
+
+.tab.selected,
+.tab.active {
+    color: var(--accent) !important;
+    border-bottom: 2px solid var(--accent) !important;
+    font-weight: 700;
+}
+
+
+/* -- Tables ----------------------------------------------------------------- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    background: var(--surface-raised) !important;
+    color: var(--text-muted) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 10px 12px;
+}
+
+td {
+    background: transparent !important;
+    color: var(--text) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 10px 12px;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+
+/* -- Inline notifications (outside guac-modal, e.g. toast banners) --------- */
+.notification:not(guac-modal .notification) {
+    color: var(--text) !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+.notification.error:not(guac-modal .notification) {
+    background: var(--error-bg) !important;
+    border-color: var(--error-border) !important;
+    color: var(--error-text) !important;
+}
+
+.notification.warning:not(guac-modal .notification) {
+    background: rgba(245, 158, 11, 0.10) !important;
+    border-color: rgba(245, 158, 11, 0.30) !important;
+    color: #f59e0b !important;
+}
+
+.notification.success:not(guac-modal .notification) {
+    background: var(--success-bg) !important;
+    border-color: var(--success-border) !important;
+    color: #4ade80 !important;
+}
+
+
+/* -- Admin / settings pages ------------------------------------------------- */
+.admin,
+.settings-view {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+}
+
+/* Settings section cards */
+.section {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin: 0 0 16px !important;
+    overflow: hidden;
+}
+
+/* Settings pages: give section cards 16px breathing room from page edges */
+.settings .section {
+    margin: 16px 16px 16px !important;
+}
+
+.section-header,
+.section > h2,
+.section > h3 {
+    background: var(--surface-raised) !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    margin: 0 !important;
+}
+
+/* Standalone section headings between cards */
+.preferences h2.header,
+.settings-view .preferences h2.header {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 0 !important;
+    margin: 20px 0 6px !important;
+}
+
+.preferences-container h2,
+.settings-view h2:not(.header h2),
+.settings-section-title {
+    color: var(--text) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    margin: 20px 0 8px !important;
+    text-transform: none !important;
+}
+
+.properties,
+.form {
+    background: transparent !important;
+    color: var(--text) !important;
+}
+
+/* Description text at top of each settings section card */
+.settings.section .form > p,
+.settings.section .form-group > p,
+.settings.section > p {
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    padding: 12px 16px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.properties .labeled-field,
+.form .labeled-field {
+    border-bottom: 1px solid var(--border) !important;
+    padding: 10px 16px !important;
+}
+
+.properties .labeled-field:last-child,
+.form .labeled-field:last-child {
+    border-bottom: none !important;
+}
+
+/* Field labels in settings */
+.properties .labeled-field .field-header,
+.form .labeled-field .field-header {
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+}
+
+/* Form table (e.g. Change Password) — consistent column layout */
+.settings-view .form table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.settings-view .form table td {
+    border-bottom: none !important;
+    padding: 10px 16px !important;
+    vertical-align: middle;
+}
+
+.settings-view .form table tr:not(:last-child) td {
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.settings-view .form table td:first-child {
+    width: 45%;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    text-transform: capitalize !important;
+    padding-right: 8px !important;
+}
+
+.settings-view .form table td:last-child {
+    width: 55%;
+}
+
+.settings-view .form table td input:not([type="checkbox"]):not([type="radio"]) {
+    width: 100% !important;
+}
+
+/* Locale section — strip card box; ::before becomes the h2.header above the card */
+.settings.section.locale {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+}
+
+.settings.section.locale::before {
+    content: "Language & Region";
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 0 !important;
+    margin: 20px 0 6px !important;
+}
+
+/* Locale description p — top of the card (rounded top, border, no bottom-radius) */
+.settings.section.locale > p.ng-binding {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+    margin: 0 !important;
+}
+
+/* locale form-group — bottom of the card (no top border, no top-radius) */
+.settings.section.locale .form-group {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-top: none !important;
+    border-radius: 0 0 var(--radius-md) var(--radius-md) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+/* Remove the Guacamole left bar and its indent padding on .fields inside preferences */
+.preferences .fields {
+    border-left: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Force locale .fields (often a fieldset) to fill the card fully */
+.settings.section.locale .fields {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+/* Locale labeled-field rows — match the 44px row height of other preference sections */
+.settings.section.locale .labeled-field {
+    min-height: 44px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Label — fixed 55% column width to match appearance table layout */
+.settings.section.locale .labeled-field .field-header {
+    flex: 0 0 55% !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+}
+
+.settings.section.locale select {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+/* Settings form selects in table cells */
+.settings-view td select {
+    width: 100% !important;
+}
+
+/* -- Preferences page ------------------------------------------------------- */
+
+/* Outer container padding — consistent with other settings pages */
+.preferences {
+    padding: 16px 16px 0 !important;
+    width: clamp(550px, 100%, 800px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Section margins */
+.preferences .settings.section {
+    margin: 0 0 16px 0 !important;
+}
+
+/* Zero top margin on whichever header is first in view — prevents double-spacing
+   against the 16px container padding (affects Appearance h2 and locale ::before) */
+.preferences > h2.header:first-child {
+    margin-top: 0 !important;
+}
+.preferences > .settings.section:first-child::before {
+    margin-top: 0 !important;
+}
+
+/* Form table used in Appearance and Change Password sections */
+.settings.section.appearance table.fields,
+.settings.section.update-password table.fields {
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+
+.settings.section.appearance table.fields th,
+.settings.section.update-password table.fields th {
+    width: 55% !important;
+    height: 44px !important;
+    padding: 0 16px !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    text-align: left !important;
+    vertical-align: middle !important;
+}
+
+.settings.section.appearance table.fields td,
+.settings.section.update-password table.fields td {
+    width: 45% !important;
+    height: 44px !important;
+    padding: 0 16px !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: middle !important;
+}
+
+.settings.section.appearance table.fields tr:last-child th,
+.settings.section.appearance table.fields tr:last-child td,
+.settings.section.update-password table.fields tr:last-child th,
+.settings.section.update-password table.fields tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Checkbox in appearance table — block so vertical-align: middle on td centres it */
+.settings.section.appearance table.fields td input[type="checkbox"] {
+    display: block !important;
+    margin: 0 !important;
+}
+
+/* Number spinbox — remove native spinner chrome; user can type or use ↑↓ keys */
+.settings.section.appearance table.fields td input[type="number"] {
+    width: 100% !important;
+    -moz-appearance: textfield !important;
+}
+.settings.section.appearance table.fields td input[type="number"]::-webkit-inner-spin-button,
+.settings.section.appearance table.fields td input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+/* Radio choice rows (Default Input Method, Default Mouse Mode) */
+.settings.section.input-method .choices,
+.settings.section.mouse-mode .choices {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.settings.section.input-method .choice {
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.settings.section.input-method .choice,
+.settings.section.mouse-mode .choice {
+    padding: 12px 16px !important;
+    
+}
+
+.settings.section.input-method .choice:last-child,
+.settings.section.mouse-mode .choice:last-child {
+    border-bottom: none !important;
+}
+
+/* Radio label row — flex with zeroed radio margin to vertically centre circle and text */
+.settings.section.input-method .choice > label,
+.settings.section.mouse-mode .choice > label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: var(--text) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 16px !important;
+    cursor: pointer !important;
+}
+
+.settings.section.input-method .choice > label input[type="radio"],
+.settings.section.mouse-mode .choice > label input[type="radio"] {
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    align-self: center !important;
+}
+
+/* Caption description text below label — flush left, no indent */
+.settings.section.input-method .choice p.caption,
+.settings.section.mouse-mode .choice p.caption {
+    margin: 5px 0 0 0 !important;
+    padding: 0 !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+.settings.section.input-method .choice p.caption label,
+.settings.section.mouse-mode .choice p.caption label {
+    color: var(--text-muted) !important;
+    font-weight: 400 !important;
+    cursor: default !important;
+}
+
+/* Update Password — primary CTA */
+button.change-password {
+    background-color: var(--accent) !important;
+    background-image: var(--icon-key) !important;
+    background-repeat: no-repeat !important;
+    background-position: 12px 50% !important;
+    background-size: 16px 16px !important;
+    padding-left: 36px !important;
+    border: none !important;
+    color: #fff !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+button.change-password:hover {
+    background-color: var(--accent-hover) !important;
+}
+button.change-password::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* Permission / role checkboxes */
+.permission-list .list-item {
+    padding: 8px 16px;
+}
+
+/* -- Settings tab navigation ------------------------------------------------ */
+/* The page-list component reuses .menu-contents/.menu-dropdown structure */
+.page-list .menu-contents {
+    background: var(--surface) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-top: none !important;
+    box-shadow: none !important;
+}
+.page-tabs .page-list {
+    background: var(--surface);
+}
+
+.page-list-level {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: stretch !important;
+    border-bottom: 1px solid var(--border) !important;
+    overflow-x: scroll;
+    scrollbar-width: none;
+}
+
+.page-list-level li {
+    display: flex !important;
+    align-items: stretch !important;
+    list-style: none !important;
+}
+
+.page-list-level a {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 16px !important;
+    height: 36px !important;
+    color: var(--text-muted) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent !important;
+    background: transparent !important;
+    white-space: nowrap;
+    transition: color var(--transition), border-color var(--transition);
+}
+
+.page-list-level a:hover {
+    color: var(--text) !important;
+}
+
+/* Active tab — override Guacamole's black text / dark bg */
+.page-list-level a.current {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid var(--accent) !important;
+    background: transparent !important;
+}
+
+/* -- Danger / destructive buttons ------------------------------------------- */
+button.danger,
+input[type="button"].danger,
+input[type="submit"].danger {
+    background: rgba(224, 57, 57, 0.12) !important;
+    border: 1px solid rgba(224, 57, 57, 0.40) !important;
+    color: #ff6b6b !important;
+}
+
+button.danger:hover,
+input[type="button"].danger:hover,
+input[type="submit"].danger:hover {
+    background: rgba(224, 57, 57, 0.22) !important;
+    border-color: rgba(224, 57, 57, 0.60) !important;
+}
+
+
+/* -- Guac client viewer ----------------------------------------------------- */
+.client-container {
+    background: #000 !important;
+}
+
+/* Ctrl+Alt+Shift side menu */
+.guac-menu {
+    background: var(--surface) !important;
+    border-right: 1px solid var(--border-strong) !important;
+    color: var(--text) !important;
+}
+
+.guac-menu .guac-menu-contents {
+    background: var(--surface) !important;
+}
+
+.guac-menu h2 {
+    color: var(--text-muted) !important;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border) !important;
+    padding-bottom: 8px;
+}
+
+
+/* -- Connection Import page ------------------------------------------------ */
+
+/* Upload card — expand from fixed 550 px to fluid width */
+.settings-view.import .file-upload-container:not(.file-selected) {
+    width: min(800px, calc(100% - 48px)) !important;
+    margin: 28px auto !important;
+    padding: 24px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+}
+
+/* Header row inside card */
+.settings-view.import .upload-header {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 14px !important;
+}
+
+.settings-view.import .file-options {
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Drop zone */
+.settings-view.import .drop-target {
+    width: 100% !important;
+    height: 180px !important;
+    border: 2px dashed var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    background: var(--surface-raised) !important;
+    transition: border-color var(--transition), background var(--transition) !important;
+}
+
+.settings-view.import .drop-target .title {
+    color: var(--text) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.settings-view.import .drop-target .browse-link {
+    font-size: 13px !important;
+}
+
+/* Options list (checkboxes) */
+.settings-view.import .import-config {
+    list-style: none !important;
+    margin: 16px 0 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.settings-view.import .import-config li {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 5px 0 !important;
+}
+
+.settings-view.import .import-config label {
+    color: var(--text) !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+}
+
+/* Custom checkboxes */
+.settings-view.import .import-config input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    border: 1.5px solid var(--border-strong) !important;
+    border-radius: 4px !important;
+    background: var(--input-bg) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    transition: border-color var(--transition), background var(--transition) !important;
+}
+
+.settings-view.import .import-config input[type="checkbox"]:checked {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    background-image: var(--icon-check) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 10px 10px !important;
+}
+
+/* Help icon — replace question.svg with a white info-circle, centred to text */
+.settings-view.import span.help {
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 1 !important;
+}
+
+.settings-view.import span.help::after {
+    background-image: var(--icon-info) !important;
+    opacity: 0.55;
+    top: 0;
+}
+
+/* Import / Cancel buttons row */
+.settings-view.import .import-buttons {
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 0 0 28px !important;
+    margin-top: 0 !important;
+}
+
+/* Import — primary CTA */
+button.save.import {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--accent) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-shadow: none !important;
+    padding: 0 20px !important;
+    height: 31px !important;
+    cursor: pointer !important;
+    transition: background var(--transition) !important;
+}
+
+button.save.import:not(:disabled):hover {
+    background: var(--accent-hover) !important;
+}
+
+button.save.import:disabled {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+}
+
+/* Cancel — secondary */
+.settings-view.import button.cancel {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    text-shadow: none !important;
+    padding: 7px 20px !important;
+    height: 31px !important;
+    cursor: pointer !important;
+    transition: background var(--transition) !important;
+}
+
+.settings-view.import button.cancel:not(:disabled):hover {
+    background: var(--surface-overlay) !important;
+}
+
+
+/* -- Login page ------------------------------------------------------------- */
+.login-ui {
+    background-color: var(--bg) !important;
+    background-image: none;
+}
+
+.login-ui .login-dialog {
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Login page background strip — keep transparent for the full-page login layout */
+.login-dialog-middle {
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+/* -- Logged-out dialog ------------------------------------------------------ */
+/* Structure: div.notification > p (message) + p > button (action)
+   No .title-bar / .body / .buttons wrappers — style paragraphs directly     */
+
+/* Synthesised header */
+.logged-out-modal .notification::before {
+    content: "Logged Out" !important;
+    display: block !important;
+    background: var(--surface-raised) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 14px 20px !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+/* Message paragraph */
+.logged-out-modal .notification > p:first-of-type {
+    padding: 20px !important;
+    margin: 0 !important;
+    color: var(--text-muted) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+}
+
+/* Button wrapper paragraph */
+.logged-out-modal .notification > p:last-of-type {
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding: 12px 20px !important;
+    margin: 0 !important;
+    border-top: 1px solid var(--border) !important;
+    background: var(--surface) !important;
+}
+
+/* Re-login button — primary blue */
+.logged-out-modal .notification button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 31px !important;
+    padding: 0 16px !important;
+    background: var(--accent) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    color: #fff !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    cursor: pointer !important;
+    transition: background var(--transition) !important;
+}
+
+.logged-out-modal .notification button:hover {
+    background: var(--accent-hover) !important;
+}
+
+.logged-out-modal .notification button::before,
+.logged-out-modal .notification button::after {
+    content: none !important;
+    display: none !important;
+}
+
+.login-dialog {
+    border-radius: var(--radius-md);
+}
+
+.login-ui .login-dialog .logo {
+    background-image: url("app/ext/branding/images/bytefloater-logo.png");
+}
+
+.login-ui .login-dialog .version .version-number {
+    background: none;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+/* Visual box on the container; strip padding bleeding in from .form .labeled-field */
+.login-ui .login-fields .labeled-field {
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    border-bottom: 1px solid var(--input-border) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 0 !important;
+    margin-bottom: 8px !important;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.login-ui .login-fields .labeled-field:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px var(--accent-glow) !important;
+}
+
+/* Needs extra :not() selectors to beat the generic input rule's (0,4,1) specificity */
+.login-ui .login-fields .labeled-field input:not([type="submit"]):not([type="button"]) {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+    font-weight: 400;
+    color: var(--text) !important;
+}
+
+/* Re-centre the floating label now the container has no padding */
+.login-ui .login-fields .labeled-field .field-header {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-top: 0 !important;
+    margin-left: 0.75em !important;
+    color: var(--text-muted) !important;
+    letter-spacing: 0.01em !important;
+    text-transform: none !important;
+    font-size: 13px !important;
+}
+
+/* -- Connections management ------------------------------------------------- */
+
+/* Toolbar layout — consistent across all settings pages */
+.settings .toolbar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 8px 13px !important;
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.settings .toolbar .action-buttons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin: 0 !important;
+}
+
+/* Guacamole uses <a class="button"> for toolbar actions, not <button> */
+/* Extra class specificity needed to beat Guacamole's a.add-connection.button rule */
+.settings .action-buttons a.button {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 31px !important;
+    padding: 0 8px !important;
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--transition), color var(--transition);
+    background-image: none !important;
+    justify-content: center;
+}
+
+.settings .action-buttons a.button:hover {
+    background: var(--surface-overlay) !important;
+    color: var(--text) !important;
+}
+
+/* Strip Guacamole's icon sprites from button pseudo-elements */
+.settings .action-buttons a.button::before,
+.settings .action-buttons a.button::after {
+    display: none !important;
+}
+
+/* New Connection / New User / New Group — primary CTA */
+.settings .action-buttons a.add-connection.button,
+.settings .action-buttons a.add-user.button,
+.settings .action-buttons a.add-user-group.button {
+    background: var(--accent) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+.settings .action-buttons a.add-connection.button:hover,
+.settings .action-buttons a.add-user.button:hover,
+.settings .action-buttons a.add-user-group.button:hover {
+    background: var(--accent-hover) !important;
+}
+
+/* Strip Guacamole's icon sprites from button pseudo-elements */
+.action-buttons a.button::before,
+.action-buttons a.button::after {
+    display: none !important;
+}
+
+/* Filter input — muted white magnifier, sized to match placeholder weight */
+.toolbar input.search-string {
+    background-image: var(--icon-search) !important;
+    background-repeat: no-repeat !important;
+    background-position: 5px 50% !important;
+    background-size: 18px !important;
+}
+
+/* -- Connection list icons — UniFi-style inline SVGs ----------------------- */
+
+/* Base reset for all type icons */
+.list-item .icon.type {
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    opacity: 0.65;
+}
+
+/* RDP / VNC / SPICE — monitor icon (settings page + home page) */
+a.settings-connection .icon.type,
+.list-item .connection .icon.type {
+    background-image: var(--icon-monitor) !important;
+}
+
+/* SSH / Telnet / Kubernetes — terminal icon (settings page + home page) */
+a.settings-connection .icon.type.ssh,
+a.settings-connection .icon.type.telnet,
+a.settings-connection .icon.type.kubernetes,
+.list-item .connection .icon.type.ssh,
+.list-item .connection .icon.type.telnet,
+.list-item .connection .icon.type.kubernetes {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Crect x='2' y='3' width='16' height='14' rx='1.5' stroke='%23fff' stroke-width='1.5'/%3E%3Cpath d='M6 8l3 2.5L6 13' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='11' y1='13' x2='15' y2='13' stroke='%23fff' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+
+/* Connection groups — folder icon (settings page + home page) */
+a.settings-connection-group .icon.type,
+.list-item .connection-group .icon.type {
+    background-image: var(--icon-folder) !important;
+}
+
+/* Expand / collapse chevron — replaces Guacamole's +/- sprite */
+.list-item .icon.expand {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M8 5l5 5-5 5' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 14px 14px !important;
+    opacity: 0.4;
+    transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Rotate chevron when the group is expanded */
+.list-item .connection.expanded .icon.expand {
+    transform: rotate(90deg);
+    opacity: 0.7;
+}
+
+
+/* -- Users / Groups management table -------------------------------------- */
+
+/* Table chrome */
+.settings table.user-list,
+.settings table.user-group-list {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+/* Column headers */
+.settings table.user-list th,
+.settings table.user-group-list th {
+    background: var(--surface-raised) !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 8px 12px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-strong) !important;
+}
+
+/* Data cells */
+.settings table.user-list td,
+.settings table.user-group-list td {
+    padding: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    vertical-align: middle !important;
+}
+
+/* Non-username cells (organisation, full name, last active) */
+.settings table.user-list td:not(.username),
+.settings table.user-group-list td:not(.name) {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    color: var(--text) !important;
+}
+
+/* Username/name cell — link fills the cell */
+.settings table.user-list td.username a,
+.settings table.user-group-list td.name a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    color: var(--text) !important;
+    font-size: 13px !important;
+    text-decoration: none !important;
+    transition: background var(--transition) !important;
+}
+
+.settings table.user-list td.username a:hover,
+.settings table.user-group-list td.name a:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: var(--text) !important;
+}
+
+/* Row hover */
+.settings table.user-list tbody tr:hover td,
+.settings table.user-group-list tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* User icon — white person SVG */
+.settings table .icon.user {
+    background-image: var(--icon-user) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    opacity: 0.55;
+}
+
+/* Sort indicators — replace Guacamole arrows with white stroke chevrons */
+table.sorted th.sort-primary::after {
+    background-image: var(--icon-chevron-down) !important;
+    opacity: 0.6;
+}
+
+table.sorted th.sort-primary.sort-descending::after {
+    background-image: var(--icon-chevron-up) !important;
+    opacity: 0.6;
+}
+
+/* Group icon — white group/people SVG */
+.settings table .icon.user-group {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='7' cy='7' r='2.8' stroke='%23ffffff' stroke-width='1.5'/%3E%3Ccircle cx='14' cy='7' r='2.2' stroke='%23ffffff' stroke-width='1.4'/%3E%3Cpath d='M1 17c0-2.761 2.686-5 6-5s6 2.239 6 5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M14 12c1.657 0 3 1.343 3 3' stroke='%23ffffff' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    opacity: 0.55;
+}
+
+
+/* -- Read-only / access-denied notice (empty state) ----------------------- */
+
+/* Strip the card only when the notice is the sole content (no form wrapper div present) */
+.manage-user:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) > .section:has(> p.notice),
+.manage-user-group:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) > .section:has(> p.notice) {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: calc(100vh - 88px) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.manage-user:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice,
+.manage-user-group:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    width: auto !important;
+    max-width: 320px !important;
+    line-height: 1.5 !important;
+}
+
+.manage-user:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice::before,
+.manage-user-group:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice::before {
+    content: '' !important;
+    display: block !important;
+    width: 36px !important;
+    height: 36px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    background-position: center !important;
+    opacity: 0.9 !important;
+    flex-shrink: 0 !important;
+}
+
+/* -- User / Group edit page (manage-user, manage-user-group) -------------- */
+
+/* Content area padding */
+.manage-user > div:not(.header):not(.page-tabs):not(.section),
+.manage-user-group > div:not(.header):not(.page-tabs):not(.section) {
+    padding: 16px 16px 80px !important;
+    width: clamp(550px, 100%, 800px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Credentials card — synthetic "CREDENTIALS" header via ::before */
+.manage-user > div > .section:first-child,
+.manage-user-group > div > .section:first-child {
+    overflow: visible !important;
+}
+
+.manage-user > div > .section:first-child::before,
+.manage-user-group > div > .section:first-child::before {
+    content: "CREDENTIALS";
+    display: block;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    margin: -1px -1px 0;
+}
+
+/* Credentials table rows */
+.manage-user table.properties,
+.manage-user-group table.properties {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+}
+
+.manage-user table.properties th,
+.manage-user-group table.properties th {
+    width: 45% !important;
+    padding: 10px 16px !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-right: none !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+}
+
+.manage-user table.properties td,
+.manage-user-group table.properties td {
+    width: 55% !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: middle !important;
+}
+
+.manage-user table.properties tr:last-child th,
+.manage-user table.properties tr:last-child td,
+.manage-user-group table.properties tr:last-child th,
+.manage-user-group table.properties tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Fix narrow password inputs in credentials table */
+.manage-user table.properties td input:not([type="checkbox"]):not([type="radio"]),
+.manage-user-group table.properties td input:not([type="checkbox"]):not([type="radio"]) {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Timezone — stack the two selects with a small gap */
+.attributes .time-zone-field {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+}
+
+.attributes .time-zone-field select {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+/* Date / time picker calendar & clock icons — invert in dark mode */
+@media (prefers-color-scheme: dark) {
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(1) opacity(0.5);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(0) opacity(0.5);
+    }
+}
+
+/* Profile / Account Restrictions — give each .form a card */
+.attributes .form {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-bottom: 16px !important;
+    overflow: hidden !important;
+}
+
+/* Card header inside .form */
+.attributes .form h3.form-header {
+    background: var(--surface-raised) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 16px !important;
+    margin: 0 !important;
+    box-shadow: none;
+}
+
+/* Override Guacamole's display:table layout — constrain to card width */
+.attributes .form {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.attributes .form .fields {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Each row: flex so label sits left, input sits right */
+.attributes .labeled-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.attributes .labeled-field:last-child {
+    border-bottom: none !important;
+}
+
+.attributes .labeled-field .field-header {
+    display: block !important;
+    flex: 0 0 45% !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Flex filler — the form-field wrapper takes remaining width */
+.attributes .labeled-field > *:not(.field-header) {
+    flex: 1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Force intermediate wrappers (form-field, text-field) to be full-width blocks */
+.attributes .labeled-field .form-field,
+.attributes .labeled-field .text-field,
+.attributes .labeled-field .select-field,
+.attributes .labeled-field .date-field,
+.attributes .labeled-field .time-field {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.attributes .labeled-field input:not([type="checkbox"]):not([type="radio"]),
+.attributes .labeled-field select,
+.attributes .labeled-field textarea {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Permissions — raised card header that connects to the .section below */
+.system-permissions > h2.header {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: none !important;
+    border-radius: 8px 8px 0 0 !important;
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 16px !important;
+    margin: 0 !important;
+}
+
+.system-permissions > .section {
+    border-radius: 0 0 8px 8px !important;
+    margin-top: 0 !important;
+}
+
+/* Groups section header bar — matches Connections header styling */
+.related-objects > .header {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: none !important;
+    border-radius: 8px 8px 0 0 !important;
+    min-height: 40px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    padding-right: 0 !important;
+}
+
+.related-objects > .header h2 {
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    flex: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.related-objects > .section {
+    border: 1px solid var(--border) !important;
+    border-radius: 0 0 8px 8px !important;
+}
+
+/* Separator between selected-pills row and the pick-list */
+.related-objects .abbreviated-related-objects {
+    border-bottom: 1px solid var(--border) !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    min-height: 44px !important;
+    box-sizing: border-box !important;
+    margin: 0;
+}
+
+/* Collapse/expand chevron — replace Guacamole's triangle imgs.
+   No display override so ng-hide (display:none !important) still works. */
+.related-objects .abbreviated-related-objects img.collapse {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+    transform: rotate(0deg) !important;
+}
+
+.related-objects .abbreviated-related-objects img.expand {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+    transform: rotate(-90deg) !important;
+}
+
+/* Selected group — pill style */
+.related-objects .abbreviated-related-objects ul {
+    display: contents !important;
+}
+
+.related-objects .abbreviated-related-objects li {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    background: rgba(59, 130, 246, 0.08) !important;
+    border: 1px solid rgba(59, 130, 246, 0.28) !important;
+    border-radius: 100px !important;
+    padding: 2px 8px 2px 5px !important;
+    list-style: none !important;
+}
+
+.related-objects .abbreviated-related-objects li label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    cursor: pointer !important;
+    color: var(--text) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    user-select: none !important;
+}
+
+/* X remove button — replace Guacamole's red X img */
+.related-objects .abbreviated-related-objects li label img.remove {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") !important;
+    width: 12px !important;
+    height: 12px !important;
+    display: block !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    opacity: 0.6 !important;
+    transition: opacity 0.15s !important;
+}
+
+.related-objects .abbreviated-related-objects li label img.remove:hover {
+    opacity: 1 !important;
+}
+
+
+
+/* Pick-list rows — checkbox + label alignment */
+
+.related-objects .all-related-objects {
+    border-top: none !important;
+}
+.related-objects .abbreviated-related-objects p.no-related-objects {
+    margin: 0;
+}
+.related-objects .abbreviated-related-objects ul,
+.related-objects .all-related-objects ul {
+    margin: 0;
+    min-height: 40px;
+    align-content: center;
+}
+.related-objects .all-related-objects li {
+    display: flex !important;
+    align-items: center !important;
+    padding: 6px 12px !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.related-objects .all-related-objects li:last-child {
+    border-bottom: none !important;
+}
+
+.related-objects .all-related-objects li label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+    color: var(--text) !important;
+}
+
+.related-objects .all-related-objects li label input[type="checkbox"] {
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+/* Connections section header bar */
+.connection-permissions > .header.tabbed {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border) !important;
+    /* border-bottom: none !important; */
+    border-radius: 8px 8px 0 0 !important;
+    min-height: 40px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    padding-right: 0 !important;
+}
+
+.connection-permissions > .header.tabbed h2 {
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    flex: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Remove top radius on .section when it follows the connections header */
+.connection-permissions > .section {
+    border-radius: 0 0 8px 8px !important;
+}
+
+.connection-permissions > .section-tabs + .section {
+    border-radius: 0 0 8px 8px !important;
+}
+
+/* Connection section-tabs (Current / All Connections) */
+.connection-permissions .section-tabs {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.connection-permissions .section-tabs ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    border-bottom: none !important;
+}
+
+.connection-permissions .section-tabs ul li {
+    list-style: none !important;
+    display: flex !important;
+}
+
+.connection-permissions .section-tabs ul li a {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 16px !important;
+    height: 36px !important;
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent !important;
+    background: transparent !important;
+    white-space: nowrap !important;
+    transition: color var(--transition), border-color var(--transition) !important;
+}
+
+.connection-permissions .section-tabs ul li a:hover {
+    color: var(--text) !important;
+}
+
+.connection-permissions .section-tabs ul li a.current {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid var(--accent) !important;
+}
+
+/* Connection list rows — center and space checkbox/icon within the inline container */
+.connection-permissions .connection-permission.choice,
+.connection-permissions .connection-group-permission.choice {
+    display: inline-flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    gap: 8px !important;
+}
+
+/* Ensure the checkbox itself doesn't add extra margin */
+.connection-permissions .connection-permission.choice input[type="checkbox"],
+.connection-permissions .connection-group-permission.choice input[type="checkbox"] {
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Action buttons bar — margin-bottom: 0 overrides Guacamole's .manage rule (margin-bottom: 1em) */
+.manage-user .action-buttons,
+.manage-user-group .action-buttons {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    gap: 8px !important;
+    z-index: 100 !important;
+}
+
+/* Page-tab status icons (checkmark = linked, lock = read-only) — fix padding
+   and invert for dark mode since Guacamole's SVGs are dark-colored */
+.manage-user .page-tabs .page-list li.linked a[href],
+.manage-user .page-tabs .page-list li.read-only a[href],
+.manage-user .page-tabs .page-list li.unlinked a[href],
+.manage-user-group .page-tabs .page-list li.linked a[href],
+.manage-user-group .page-tabs .page-list li.read-only a[href],
+.manage-user-group .page-tabs .page-list li.unlinked a[href] {
+    position: relative !important;
+    padding-right: 2em !important;
+}
+
+.manage-user .page-tabs .page-list li a[href]::before,
+.manage-user-group .page-tabs .page-list li a[href]::before {
+    background-size: 14px 14px !important;
+    background-position: center right 6px !important;
+}
+
+/* Uniform row height — table rows and flex rows */
+.manage-user table.properties th,
+.manage-user table.properties td,
+.manage-user-group table.properties th,
+.manage-user-group table.properties td {
+    min-height: 52px !important;
+    height: 52px !important;
+}
+
+.attributes .labeled-field {
+    min-height: 52px !important;
+}
+
+/* Checkbox centering in table cells */
+.manage-user table.properties td input[type="checkbox"],
+.manage-user table.properties td input[type="radio"],
+.manage-user-group table.properties td input[type="checkbox"],
+.manage-user-group table.properties td input[type="radio"] {
+    display: block !important;
+    margin: auto 0 !important;
+}
+
+.manage-user .page-tabs .page-list li.linked a[href]:before,
+.manage-user .page-tabs .page-list li.read-only a[href]:before {
+    background-image: none !important;
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 14px 14px;
+    mask-size: 14px 14px;
+    -webkit-mask-position: center right 6px;
+    mask-position: center right 6px;
+}
+.manage-user .page-tabs .page-list li.linked a[href]:before {
+    -webkit-mask-image: var(--icon-check);
+    mask-image: var(--icon-check);
+}
+.manage-user .page-tabs .page-list li.read-only a[href]:before {
+    -webkit-mask-image: var(--icon-lock);
+    mask-image: var(--icon-lock);
+}
+
+/* Checkbox centering in flex rows */
+.attributes .labeled-field input[type="checkbox"],
+.attributes .labeled-field input[type="radio"] {
+    display: block !important;
+    align-self: center !important;
+    margin: auto 0 !important;
+}
+
+/* -- Connection / Connection Group edit pages ------------------------------ */
+
+/* Center and constrain all direct children except the full-width header */
+.manage-connection > *:not(.header),
+.manage-connection-group > *:not(.header) {
+    display: block !important;
+    width: clamp(550px, calc(100% - 32px), 800px) !important;
+    box-sizing: border-box !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* First section — Name / Location / Protocol card */
+.manage-connection > .section:not(.connection-parameters),
+.manage-connection-group > .section {
+    background: var(--surface) !important;
+    border-left: 1px solid var(--border) !important;
+    border-right: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-top: none !important;
+    border-radius: 8px !important;
+    overflow: visible !important;
+    margin-top: 16px !important;
+}
+
+.manage-connection > .section:not(.connection-parameters)::before {
+    content: "CONNECTION";
+    display: block;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    margin: 0 -1px 0;
+}
+
+.manage-connection-group > .section::before {
+    content: "CONNECTION GROUP";
+    display: block;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    margin: 0 -1px 0;
+}
+
+/* Properties table */
+.manage-connection table.properties,
+.manage-connection-group table.properties {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+}
+
+.manage-connection table.properties th,
+.manage-connection-group table.properties th {
+    width: 45% !important;
+    padding: 10px 16px !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-right: none !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+}
+
+.manage-connection table.properties td,
+.manage-connection-group table.properties td {
+    width: 55% !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: middle !important;
+}
+
+.manage-connection table.properties tr:last-child th,
+.manage-connection table.properties tr:last-child td,
+.manage-connection-group table.properties tr:last-child th,
+.manage-connection-group table.properties tr:last-child td {
+    border-bottom: none !important;
+}
+
+.manage-connection table.properties th,
+.manage-connection table.properties td,
+.manage-connection-group table.properties th,
+.manage-connection-group table.properties td {
+    min-height: 52px !important;
+    height: 52px !important;
+}
+
+.manage-connection table.properties td input:not([type="checkbox"]):not([type="radio"]),
+.manage-connection table.properties td select,
+.manage-connection-group table.properties td input:not([type="checkbox"]):not([type="radio"]),
+.manage-connection-group table.properties td select {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Attributes section — spacing */
+.manage-connection > .attributes,
+.manage-connection-group > .attributes {
+    margin-top: 16px !important;
+    padding: 0 !important;
+}
+
+/* "Parameters" / section divider headings */
+.manage-connection > h2.header,
+.manage-connection-group > h2.header {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 0 !important;
+    margin: 24px 0 8px !important;
+}
+
+/* Connection parameters — card each .form */
+.manage-connection .connection-parameters {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.manage-connection .connection-parameters .form-group {
+    padding: 0 !important;
+}
+
+.manage-connection .connection-parameters .form {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-bottom: 16px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.manage-connection .connection-parameters h3.form-header {
+    background: var(--surface-raised) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 16px !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.manage-connection .connection-parameters .fields {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.manage-connection .connection-parameters .labeled-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 52px !important;
+}
+
+.manage-connection .connection-parameters .labeled-field:last-child {
+    border-bottom: none !important;
+}
+
+.manage-connection .connection-parameters .labeled-field .field-header {
+    display: block !important;
+    flex: 0 0 45% !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.manage-connection .connection-parameters .labeled-field > *:not(.field-header) {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.manage-connection .connection-parameters .labeled-field .form-field,
+.manage-connection .connection-parameters .labeled-field .text-field,
+.manage-connection .connection-parameters .labeled-field .select-field {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.manage-connection .connection-parameters .labeled-field input:not([type="checkbox"]):not([type="radio"]),
+.manage-connection .connection-parameters .labeled-field select,
+.manage-connection .connection-parameters .labeled-field textarea {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+.manage-connection .connection-parameters .labeled-field input[type="checkbox"],
+.manage-connection .connection-parameters .labeled-field input[type="radio"] {
+    display: block !important;
+    align-self: center !important;
+    margin: auto 0 !important;
+}
+
+/* -- Location chooser -------------------------------------------------------- */
+
+/* Ensure the chooser fills the table cell */
+.location-chooser {
+    display: block !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+/* Current-value pill — styled like an input */
+.location-chooser .location {
+    display: flex !important;
+    align-items: center !important;
+    height: 31px !important;
+    padding: 0 10px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    cursor: pointer !important;
+}
+
+.location-chooser .location:hover {
+    background: var(--surface-raised) !important;
+}
+
+/* Dropdown panel */
+.location-chooser .dropdown {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: 0 12px 16px -4px rgba(0, 0, 0, 0.25) !important;
+    min-width: 100% !important;
+    overflow: hidden !important;
+    z-index: 100 !important;
+    margin-top: 2px !important;
+}
+
+/* Each group row */
+.location-chooser .connection-group .caption {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    cursor: pointer !important;
+    color: var(--text) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    transition: background var(--transition) !important;
+}
+
+.location-chooser .connection-group .caption:hover {
+    background: var(--surface-overlay) !important;
+}
+
+/* Selected / active group */
+.location-chooser .connection-group.selected .caption,
+.location-chooser .connection-group.current .caption {
+    color: var(--accent) !important;
+    font-weight: 600 !important;
+}
+
+.caption .activeUserCount {
+    float: unset !important;
+    border: 1px solid var(--border);
+    border-radius: 99px; /* or whatever the pill definition is */
+    padding: 0.15em 0.45em;
+    background: var(--accent-subtle);
+    margin-right: unset !important;
+    margin-left: 0.5em;
+}
+
+/* Share Bubble for Connections */
+.jdbc-share-tag {
+    font-size: unset !important;
+    border: 1px solid var(--border);
+    border-radius: 99px; /* Pill appearnace */
+    padding: 0.15em 0.45em;
+    margin-left: 0.5em;
+}
+
+/* Expand icon — constrain to 16px */
+.location-chooser .icon.expand {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.5 !important;
+}
+
+/* Indent nested groups */
+.location-chooser .children {
+    padding-left: 16px !important;
+}
+
+/* Fixed action bar — same pattern as manage-user */
+.manage-connection .action-buttons,
+.manage-connection-group .action-buttons {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    gap: 8px !important;
+    z-index: 100 !important;
+    box-sizing: border-box !important;
+}
+
+/* Save = primary blue */
+.manage-connection .action-buttons button.save,
+.manage-connection-group .action-buttons button.save {
+    background: var(--accent) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+.manage-connection .action-buttons button.save:hover,
+.manage-connection-group .action-buttons button.save:hover {
+    background: var(--accent-hover) !important;
+}
+
+/* Bottom padding so content clears the fixed bar */
+.manage-connection > .section:last-of-type,
+.manage-connection > .attributes:last-of-type,
+.manage-connection > h2.header:last-of-type,
+.manage-connection-group > .section:last-of-type,
+.manage-connection-group > .attributes:last-of-type,
+.manage-connection-group > h2.header:last-of-type {
+    margin-bottom: 80px !important;
+}
+
+/* -- Connection History ---------------------------------------------------- */
+
+/* form.filter IS the toolbar row — zero margin, add padding + border */
+.settings.section.connectionHistory > form.filter {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 8px 16px !important;
+    margin: 0 !important;
+    min-height: 61px !important;
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+    box-sizing: border-box !important;
+}
+
+/* Search input — flex-grows to push buttons to the right */
+.settings.section.connectionHistory form.filter input.search-string {
+    flex: 1 !important;
+    background-image: var(--icon-search) !important;
+    background-repeat: no-repeat !important;
+    background-position: 5px 50% !important;
+    background-size: 18px !important;
+}
+
+/* Search and Download buttons — secondary style */
+.settings.section.connectionHistory form.filter input.search-button,
+.settings.section.connectionHistory form.filter button {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: var(--text) !important;
+    height: 31px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background var(--transition) !important;
+}
+
+.settings.section.connectionHistory form.filter input.search-button:hover,
+.settings.section.connectionHistory form.filter button:hover {
+    background: var(--surface-overlay) !important;
+}
+
+/* History table — same treatment as user-list / session-list */
+.settings table.history-list th {
+    background: var(--surface-raised) !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 8px 12px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-strong) !important;
+}
+
+.settings table.history-list td {
+    padding: 8px 12px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    vertical-align: middle !important;
+    font-size: 13px !important;
+}
+
+/* Row hover */
+.settings table.history-list tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+
+/* -- Pager ----------------------------------------------------------------- */
+
+/* Container — centred flex row, zero margin */
+.pager {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    padding: 12px 16px !important;
+    margin: 0 !important;
+}
+
+/* Page number list */
+.pager ul.page-numbers {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.pager ul.page-numbers li.set-page {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 28px !important;
+    height: 28px !important;
+    padding: 0 6px !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: background var(--transition), color var(--transition) !important;
+    text-decoration: none;
+}
+
+.pager ul.page-numbers li.set-page:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: var(--text) !important;
+}
+
+/* Active page — blue pill */
+.pager ul.page-numbers li.set-page.current {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border: none !important;
+    cursor: default !important;
+}
+
+/* "..." overflow indicator */
+.pager .more-pages {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 28px !important;
+    height: 28px !important;
+    color: var(--text-faint) !important;
+    font-size: 12px !important;
+    padding: 0 !important;
+}
+
+/* Nav arrow buttons — replace Guacamole pixel icons with stroke chevrons */
+.pager .first-page.icon,
+.pager .prev-page.icon,
+.pager .next-page.icon,
+.pager .last-page.icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: var(--radius-sm) !important;
+    background-color: transparent !important;
+    background-size: 16px 16px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    cursor: pointer !important;
+    transition: background-color var(--transition), opacity var(--transition) !important;
+}
+
+.pager .first-page.icon:not(.disabled):hover,
+.pager .prev-page.icon:not(.disabled):hover,
+.pager .next-page.icon:not(.disabled):hover,
+.pager .last-page.icon:not(.disabled):hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.pager .icon.disabled {
+    opacity: 0.25 !important;
+    cursor: default !important;
+}
+
+/* First page: |← */
+.pager .first-page.icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cline x1='5' y1='5' x2='5' y2='15' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M15 5l-6 5 6 5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+
+/* Prev page: ← */
+.pager .prev-page.icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M13 5l-6 5 6 5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+
+/* Next page: → */
+.pager .next-page.icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M7 5l6 5-6 5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+
+/* Last page: →| */
+.pager .last-page.icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cline x1='15' y1='5' x2='15' y2='15' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M5 5l6 5-6 5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+
+
+/* -- Active Sessions ------------------------------------------------------- */
+
+/* Grid layout — places Kill Sessions button and filter in the same toolbar
+   row without touching the HTML. All other children span both columns.      */
+.settings.section.sessions {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    align-items: stretch !important;
+}
+
+.settings.section.sessions > p.ng-binding,
+.settings.section.sessions > table.session-list,
+.settings.section.sessions > p.placeholder,
+.settings.section.sessions > .pager {
+    grid-column: 1 / -1 !important;
+}
+
+.settings.section.sessions > .action-buttons {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 8px 13px !important;
+    margin: 0 !important;
+    min-height: 61px !important;
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+    box-sizing: border-box !important;
+}
+
+.settings.section.sessions > .filter {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    padding: 8px 16px 8px 0 !important;
+    margin: 0 !important;
+    min-height: 61px !important;
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+    box-sizing: border-box !important;
+}
+
+/* Kill Sessions — danger style */
+.settings.section.sessions button.delete-sessions.danger {
+    background: rgba(224, 57, 57, 0.12) !important;
+    border: 1px solid rgba(224, 57, 57, 0.35) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--error-text) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    height: 31px !important;
+    padding: 0 14px !important;
+    cursor: pointer !important;
+}
+
+.settings.section.sessions button.delete-sessions.danger:not(:disabled):hover {
+    background: rgba(224, 57, 57, 0.20) !important;
+    border-color: rgba(224, 57, 57, 0.55) !important;
+}
+
+.settings.section.sessions button.delete-sessions.danger:disabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+}
+
+/* Filter input — muted magnifier (this .filter is not inside .toolbar) */
+.settings.section.sessions .filter input {
+    background-image: var(--icon-search) !important;
+    background-repeat: no-repeat !important;
+    background-position: 5px 50% !important;
+    background-size: 18px !important;
+}
+
+/* Session list table — same treatment as user-list */
+.settings table.session-list th {
+    background: var(--surface-raised) !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 8px 12px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-strong) !important;
+}
+
+.settings table.session-list td {
+    padding: 8px 12px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    vertical-align: middle !important;
+    font-size: 13px !important;
+}
+
+/* Checkbox select column */
+.settings table.session-list th.select-session,
+.settings table.session-list td.select-session {
+    padding: 8px 8px 8px 12px !important;
+    width: 32px !important;
+}
+
+/* Row hover */
+.settings table.session-list tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+
+/* -- Login page ------------------------------------------------------------- */
+
+.login-ui.error p.login-error {
+    background: var(--error-bg) !important;
+    border: 1px solid var(--error-border) !important;
+    border-radius: var(--radius-sm);
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: var(--error-text);
+    font-size: 12px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIGHT MODE — auto-switches via prefers-color-scheme
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: light) {
+
+    /* -- Scrollbars -- */
+    ::-webkit-scrollbar-thumb       { background: rgba(0, 0, 0, 0.18) !important; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.30) !important; }
+
+    /* -- Hardcoded white-alpha hover/row backgrounds -- */
+
+    .menu-contents a:hover,
+    .menu-contents .menu-item:hover,
+    .menu-dropdown .menu-contents li a:hover {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .list-item:hover,
+    .list-item:not(.selected) .caption:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .recent-connections .connection:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    tr:hover td {
+        background: rgba(0, 0, 0, 0.03) !important;
+    }
+
+    .settings table.user-list td.username a:hover,
+    .settings table.user-group-list td.name a:hover {
+        background: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .settings table.user-list tbody tr:hover td,
+    .settings table.user-group-list tbody tr:hover td {
+        background: rgba(0, 0, 0, 0.02) !important;
+    }
+
+    /* -- Login box shadow — softer on light bg -- */
+    .login-ui .login-dialog {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* -- SVG icons — invert white strokes to dark --
+       All icon elements use transparent backgrounds so invert(1) is safe  */
+    .list-item .icon.type,
+    .list-item .icon.expand,
+    .settings table .icon.user-group {
+        filter: invert(1) !important;
+    }
+
+    .menu-dropdown .menu-title {
+        background-image: var(--icon-user) !important;
+    }
+
+    .menu-dropdown .menu-indicator {
+        background-image: var(--icon-chevron-down) !important;
+    }
+
+    .menu-dropdown a.logout::before {
+        filter: invert(1) !important;
+    }
+
+    .menu-dropdown:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    table.sorted th.sort-primary::after,
+    table.sorted th.sort-primary.sort-descending::after {
+        filter: invert(1) !important;
+    }
+
+    /* -- Import page help icon — invert to dark -- */
+    .settings-view.import span.help::after {
+        filter: invert(1) !important;
+    }
+
+    /* -- Filter / search input — dark magnifier for light bg --
+       Can't invert() the input itself without inverting typed text too  */
+    .toolbar input.search-string,
+    .settings.section.sessions .filter input,
+    .settings.section.connectionHistory form.filter input.search-string,
+    .header .filter input {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='8.5' cy='8.5' r='5' stroke='%23000000' stroke-opacity='0.45' stroke-width='1.5'/%3E%3Cline x1='12.5' y1='12.5' x2='17' y2='17' stroke='%23000000' stroke-opacity='0.45' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+        background-size: 18px !important;
+        background-position: 5px 50% !important;
+    }
+
+    /* -- Sessions / History table row hover — dark bg -- */
+    .settings table.session-list tbody tr:hover td,
+    .settings table.history-list tbody tr:hover td {
+        background: rgba(0, 0, 0, 0.02) !important;
+    }
+
+    /* -- Pager — invert white-stroke chevrons to dark, adjust hover -- */
+    .pager .first-page.icon,
+    .pager .prev-page.icon,
+    .pager .next-page.icon,
+    .pager .last-page.icon {
+        filter: invert(1) !important;
+    }
+
+    .pager ul.page-numbers li.set-page:hover {
+        background: rgba(0, 0, 0, 0.06) !important;
+        color: var(--text) !important;
+    }
+
+    .pager .first-page.icon:not(.disabled):hover,
+    .pager .prev-page.icon:not(.disabled):hover,
+    .pager .next-page.icon:not(.disabled):hover,
+    .pager .last-page.icon:not(.disabled):hover {
+        background-color: rgba(0, 0, 0, 0.06) !important;
+    }
+
+}
