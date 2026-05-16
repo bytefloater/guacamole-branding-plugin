@@ -1,0 +1,13 @@
+{
+    "folder": "./branding",
+    "output_name": "branding.jar",
+    "keep_archive": false,
+    "force_overwrite": false,
+    "server": {
+        "host": "<<ADDRESS>>",
+        "port": 22,
+        "username": "<<USERNAME>>",
+        "password": "<<PASSWORD>>",
+        "remote_dir": "/etc/guacamole/extensions"
+    }
+}
