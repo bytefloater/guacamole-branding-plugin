@@ -1733,7 +1733,7 @@ button.save.import:disabled {
 }
 
 .login-ui .login-dialog .logo {
-    background-image: url("app/ext/branding/images/bytefloater-logo.png");
+    background-image: var(--login-logo);
 }
 
 .login-ui .login-dialog .version .version-number {

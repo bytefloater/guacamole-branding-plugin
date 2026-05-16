@@ -25,6 +25,7 @@
     --radius-md:       10px;
     --radius-lg:       14px;
     --transition:      0.15s ease;
+    --login-logo:      url("app/ext/branding/images/brand/custom-logo.png");
 
     /* ── Icons ── */
     --icon-search:       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='0.45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21 21-4.34-4.34'/%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3C/svg%3E");
