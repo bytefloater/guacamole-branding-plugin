@@ -56,6 +56,9 @@ hs_err_pid*
 .settings/
 .factorypath
 
+# Deploy config (contains credentials)
+scripts/deploy.json
+
 # Logs
 *.log
 logs/
