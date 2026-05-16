@@ -1,0 +1,18 @@
+{
+    "NAME": "English",
+    "APP": {
+        "NAME": "WebConnect",
+        "ACTION_DELETE_SESSIONS": "End Sessions"
+    },
+    "CLIENT": {
+        "HELP_INPUT_METHOD_OSK" : "Display and accept input from the built-in @:APP.NAME on-screen keyboard. The on-screen keyboard allows typing of key combinations that may otherwise be impossible (such as Ctrl-Alt-Del)."
+    },
+    "SETTINGS_SESSIONS": {
+        "ACTION_DELETE": "@:APP.ACTION_DELETE_SESSIONS",
+        "HELP_SESSIONS" : "This page will be populated with currently-active sessions. The sessions listed and the ability to end those sessions is dependent upon your access level. If you wish to end one or more sessions, check the box next to those sessions and click \"End Sessions\". Ending a session will immediately disconnect the user from the associated connection."
+    },
+    "SETTINGS_PREFERENCES": {
+        "HELP_DEFAULT_INPUT_METHOD" : "The default input method determines how keyboard events are received by @:APP.NAME. Changing this setting may be necessary when using a mobile device, or when typing through an IME. This setting can be overridden on a per-connection basis within the @:APP.NAME menu.",
+        "HELP_DEFAULT_MOUSE_MODE"   : "The default mouse emulation mode determines how the remote mouse will behave in new connections with respect to touches. This setting can be overridden on a per-connection basis within the @:APP.NAME menu."
+    }
+}
