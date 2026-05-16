@@ -1,0 +1,44 @@
+{
+    "guacamoleVersion": "*",
+    "name": "bytefloater/guacamole-branding-plugin",
+    "namespace": "branding",
+    "translations": [
+        "translations/en.json"
+    ],
+    "css": [
+        "css/themes.css",
+        "css/login-override.css",
+        "css/font-kit.css"
+    ],
+    "js": [
+        "js/theme-images.js",
+        "js/translation-filter.js"
+    ],
+    "resources": {
+        "images/brand/custom-logo.png": "image/png",
+        "images/settings/touchpad-dark.svg": "image/svg+xml",
+        "images/settings/touchpad-light.svg": "image/svg+xml",
+        "images/settings/touchscreen-dark.svg": "image/svg+xml",
+        "images/settings/touchscreen-light.svg": "image/svg+xml",
+        "fonts/Inter/InterVariable.woff2": "font/woff2",
+        "fonts/Inter/InterVariable-Italic.woff2": "font/woff2",
+        "fonts/Inter/Inter-Thin.woff2": "font/woff2",
+        "fonts/Inter/Inter-ThinItalic.woff2": "font/woff2",
+        "fonts/Inter/Inter-ExtraLight.woff2": "font/woff2",
+        "fonts/Inter/Inter-ExtraLightItalic.woff2": "font/woff2",
+        "fonts/Inter/Inter-Light.woff2": "font/woff2",
+        "fonts/Inter/Inter-LightItalic.woff2": "font/woff2",
+        "fonts/Inter/Inter-Regular.woff2": "font/woff2",
+        "fonts/Inter/Inter-Italic.woff2": "font/woff2",
+        "fonts/Inter/Inter-Medium.woff2": "font/woff2",
+        "fonts/Inter/Inter-MediumItalic.woff2": "font/woff2",
+        "fonts/Inter/Inter-SemiBold.woff2": "font/woff2",
+        "fonts/Inter/Inter-SemiBoldItalic.woff2": "font/woff2",
+        "fonts/Inter/Inter-Bold.woff2": "font/woff2",
+        "fonts/Inter/Inter-BoldItalic.woff2": "font/woff2",
+        "fonts/Inter/Inter-ExtraBold.woff2": "font/woff2",
+        "fonts/Inter/Inter-ExtraBoldItalic.woff2": "font/woff2",
+        "fonts/Inter/Inter-Black.woff2": "font/woff2",
+        "fonts/Inter/Inter-BlackItalic.woff2": "font/woff2"
+    }
+}
