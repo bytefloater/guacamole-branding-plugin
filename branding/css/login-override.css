@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overflow-x: hidden;
+}
+
 html,
 body {
     background-color: var(--bg) !important;
@@ -41,8 +47,8 @@ a:hover {
 ::-webkit-scrollbar-thumb:hover  { background: rgba(255,255,255,0.22); }
 
 /* Float-label behavior — login form only */
-.labeled-field .field-header label       { display: none; }
-.labeled-field.empty .field-header label { display: inline; }
+.login-fields .labeled-field .field-header label       { display: none; }
+.login-fields .labeled-field.empty .field-header label { display: inline; }
 
 /* Restore label visibility inside settings/preferences (not the login form) */
 .settings .labeled-field .field-header label,
@@ -3438,5 +3444,33 @@ table.sorted th.sort-primary.sort-descending::after {
     .pager .last-page.icon:not(.disabled):hover {
         background-color: rgba(0, 0, 0, 0.06) !important;
     }
+}
 
+
+/* ── Mobile / narrow-viewport overrides ─────────────────────────────────── */
+@media (max-width: 600px) {
+    /* Prevent any overflow from blowing out the viewport width */
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    /* Preferences page*/
+    .preferences {
+        width: 100% !important;
+        padding: 12px 12px 0 !important;
+    }
+
+    /* User / group edit page — same treatment */
+    .manage-user > div:not(.header):not(.page-tabs):not(.section),
+    .manage-user-group > div:not(.header):not(.page-tabs):not(.section) {
+        width: 100% !important;
+        padding: 12px 12px 80px !important;
+    }
+
+    /* Connection / connection-group edit page */
+    .manage-connection > *:not(.header),
+    .manage-connection-group > *:not(.header) {
+        width: 100% !important;
+    }
 }
