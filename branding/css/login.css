@@ -1,0 +1,158 @@
+/* -- Login page ------------------------------------------------------------- */
+.login-ui {
+    background-color: var(--bg) !important;
+    background-image: none;
+}
+
+.login-ui .login-dialog {
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Login page background strip — keep transparent for the full-page login layout */
+.login-dialog-middle {
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+/* -- Logged-out dialog ------------------------------------------------------ */
+/* Structure: div.notification > p (message) + p > button (action)
+   No .title-bar / .body / .buttons wrappers — style paragraphs directly     */
+
+/* Synthesised header */
+.logged-out-modal .notification::before {
+    content: "Logged Out" !important;
+    display: block !important;
+    background: var(--surface-raised) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 14px 20px !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+/* Message paragraph */
+.logged-out-modal .notification > p:first-of-type {
+    padding: 20px !important;
+    margin: 0 !important;
+    color: var(--text-muted) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+}
+
+/* Button wrapper paragraph */
+.logged-out-modal .notification > p:last-of-type {
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding: 12px 20px !important;
+    margin: 0 !important;
+    border-top: 1px solid var(--border) !important;
+    background: var(--surface) !important;
+}
+
+/* Re-login button — primary blue */
+.logged-out-modal .notification button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 31px !important;
+    padding: 0 16px !important;
+    background: var(--accent) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    color: #fff !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    cursor: pointer !important;
+    transition: background var(--transition) !important;
+}
+
+.logged-out-modal .notification button:hover {
+    background: var(--accent-hover) !important;
+}
+
+.logged-out-modal .notification button::before,
+.logged-out-modal .notification button::after {
+    content: none !important;
+    display: none !important;
+}
+
+.login-dialog {
+    border-radius: var(--radius-md);
+}
+
+.login-ui .login-dialog .logo {
+    background-image: var(--login-logo);
+}
+
+.login-ui .login-dialog .version .version-number {
+    background: none;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+/* Visual box on the container; strip padding bleeding in from .form .labeled-field */
+.login-ui .login-fields .labeled-field {
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    border-bottom: 1px solid var(--input-border) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 0 !important;
+    margin-bottom: 8px !important;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.login-ui .login-fields .labeled-field:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px var(--accent-glow) !important;
+}
+
+/* Needs extra :not() selectors to beat the generic input rule's (0,4,1) specificity */
+.login-ui .login-fields .labeled-field input:not([type="submit"]):not([type="button"]) {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+    font-weight: 400;
+    color: var(--text) !important;
+}
+
+/* Re-centre the floating label now the container has no padding */
+.login-ui .login-fields .labeled-field .field-header {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-top: 0 !important;
+    margin-left: 0.75em !important;
+    color: var(--text-muted) !important;
+    letter-spacing: 0.01em !important;
+    text-transform: none !important;
+    font-size: 13px !important;
+}
+
+/* -- Login page ------------------------------------------------------------- */
+
+.login-ui.error p.login-error {
+    background: var(--error-bg) !important;
+    border: 1px solid var(--error-border) !important;
+    border-radius: var(--radius-sm);
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: var(--error-text);
+    font-size: 12px;
+}

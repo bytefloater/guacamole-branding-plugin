@@ -1,0 +1,187 @@
+/* -- Generic inputs, selects, textareas (whole app) ------------------------- */
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+    background-color: var(--input-bg) !important;
+    background-repeat: no-repeat;
+    border: 1px solid var(--input-border) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+/* Consistent 31px control height for single-line inputs and selects.
+   Padding intentionally omitted here — search inputs need extra left padding
+   for the magnifier icon and are handled by more specific rules below.      */
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),
+select {
+    height: 31px !important;
+    box-sizing: border-box !important;
+}
+
+/* Default padding — exclude search inputs which need their own left clearance */
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]):not(.search-string) {
+    padding: 0 10px !important;
+}
+
+/* Search / filter inputs — left padding clears the magnifier icon */
+input.search-string,
+.settings.section.sessions .filter input,
+.settings.section.connectionHistory form.filter input.search-string {
+    padding-left: 26px !important;
+    padding-right: 10px !important;
+}
+
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+    outline: none !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px var(--accent-glow) !important;
+}
+
+input::placeholder,
+textarea::placeholder,
+.placeholder {
+    color: var(--text-muted) !important;
+    text-shadow: none;
+}
+
+select option {
+    background: var(--surface-overlay);
+    color: var(--text);
+}
+
+/* -- Checkboxes ------------------------------------------------------------- */
+input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    border: 1.5px solid var(--border-strong) !important;
+    border-radius: 4px !important;
+    background: var(--input-bg) !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: background var(--transition), border-color var(--transition) !important;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    background-image: var(--icon-check) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 10px 10px !important;
+}
+
+/* -- Radio buttons ---------------------------------------------------------- */
+input[type="radio"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    border: 1.5px solid var(--border-strong) !important;
+    border-radius: 50% !important;
+    background: var(--input-bg) !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: background var(--transition), border-color var(--transition) !important;
+}
+
+input[type="radio"]:checked {
+    border-color: var(--accent) !important;
+    background-color: var(--accent) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='3' fill='%23ffffff'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+}
+
+/* Labeled fields (settings forms) */
+.labeled-field .field-header {
+    color: var(--text-muted) !important;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+
+/* -- Generic buttons (whole app) -------------------------------------------- */
+button,
+input[type="button"],
+input[type="submit"] {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    height: 31px !important;
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background: var(--surface-overlay) !important;
+    border-color: var(--border-strong) !important;
+}
+
+/* Primary / action buttons */
+button.action,
+input[type="submit"].action,
+.buttons input.login {
+    background: var(--accent) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    transition: background var(--transition);
+}
+
+button.action:hover,
+input[type="submit"].action:hover,
+.buttons input.login:hover {
+    background: var(--accent-hover) !important;
+}
+
+button.action:active,
+input[type="submit"].action:active,
+.buttons input.login:active {
+    background: var(--accent-active) !important;
+}
+
+.buttons input.login,
+.buttons input.continue-login {
+    text-shadow: none !important;
+}
+
+/* -- Danger / destructive buttons ------------------------------------------- */
+button.danger,
+input[type="button"].danger,
+input[type="submit"].danger {
+    background: rgba(224, 57, 57, 0.12) !important;
+    border: 1px solid rgba(224, 57, 57, 0.40) !important;
+    color: #ff6b6b !important;
+}
+
+button.danger:hover,
+input[type="button"].danger:hover,
+input[type="submit"].danger:hover {
+    background: rgba(224, 57, 57, 0.22) !important;
+    border-color: rgba(224, 57, 57, 0.60) !important;
+}
+

@@ -1,0 +1,168 @@
+/* -- Connection Import page ------------------------------------------------ */
+
+/* Upload card — expand from fixed 550 px to fluid width */
+.settings-view.import .file-upload-container:not(.file-selected) {
+    width: min(800px, calc(100% - 48px)) !important;
+    margin: 28px auto !important;
+    padding: 24px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+}
+
+/* Header row inside card */
+.settings-view.import .upload-header {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 14px !important;
+}
+
+.settings-view.import .file-options {
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Drop zone */
+.settings-view.import .drop-target {
+    width: 100% !important;
+    height: 180px !important;
+    border: 2px dashed var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    background: var(--surface-raised) !important;
+    transition: border-color var(--transition), background var(--transition) !important;
+}
+
+.settings-view.import .drop-target .title {
+    color: var(--text) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.settings-view.import .drop-target .browse-link {
+    font-size: 13px !important;
+}
+
+/* Options list (checkboxes) */
+.settings-view.import .import-config {
+    list-style: none !important;
+    margin: 16px 0 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.settings-view.import .import-config li {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 5px 0 !important;
+}
+
+.settings-view.import .import-config label {
+    color: var(--text) !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+}
+
+/* Custom checkboxes */
+.settings-view.import .import-config input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    border: 1.5px solid var(--border-strong) !important;
+    border-radius: 4px !important;
+    background: var(--input-bg) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    transition: border-color var(--transition), background var(--transition) !important;
+}
+
+.settings-view.import .import-config input[type="checkbox"]:checked {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    background-image: var(--icon-check) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 10px 10px !important;
+}
+
+/* Help icon — replace question.svg with a white info-circle, centred to text */
+.settings-view.import span.help {
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 1 !important;
+}
+
+.settings-view.import span.help::after {
+    background-image: var(--icon-info) !important;
+    opacity: 0.55;
+    top: 0;
+}
+
+/* Import / Cancel buttons row */
+.settings-view.import .import-buttons {
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 0 0 28px !important;
+    margin-top: 0 !important;
+}
+
+/* Import — primary CTA */
+button.save.import {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--accent) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-shadow: none !important;
+    padding: 0 20px !important;
+    height: 31px !important;
+    cursor: pointer !important;
+    transition: background var(--transition) !important;
+}
+
+button.save.import:not(:disabled):hover {
+    background: var(--accent-hover) !important;
+}
+
+button.save.import:disabled {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+}
+
+/* Cancel — secondary */
+.settings-view.import button.cancel {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    text-shadow: none !important;
+    padding: 7px 20px !important;
+    height: 31px !important;
+    cursor: pointer !important;
+    transition: background var(--transition) !important;
+}
+
+.settings-view.import button.cancel:not(:disabled):hover {
+    background: var(--surface-overlay) !important;
+}

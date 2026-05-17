@@ -1,0 +1,114 @@
+/* LIGHT MODE — auto-switches via prefers-color  */
+@media (prefers-color-scheme: light) {
+
+    /* -- Scrollbars -- */
+    ::-webkit-scrollbar-thumb       { background: rgba(0, 0, 0, 0.18) !important; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.30) !important; }
+
+    /* -- Hardcoded white-alpha hover/row backgrounds -- */
+
+    .menu-contents a:hover,
+    .menu-contents .menu-item:hover,
+    .menu-dropdown .menu-contents li a:hover {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .list-item:hover,
+    .list-item:not(.selected) .caption:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .recent-connections .connection:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    tr:hover td {
+        background: rgba(0, 0, 0, 0.03) !important;
+    }
+
+    .settings table.user-list td.username a:hover,
+    .settings table.user-group-list td.name a:hover {
+        background: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .settings table.user-list tbody tr:hover td,
+    .settings table.user-group-list tbody tr:hover td {
+        background: rgba(0, 0, 0, 0.02) !important;
+    }
+
+    /* -- Login box shadow — softer on light bg -- */
+    .login-ui .login-dialog {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* -- SVG icons — invert white strokes to dark --
+       All icon elements use transparent backgrounds so invert(1) is safe  */
+    .list-item .icon.type,
+    .list-item .icon.expand,
+    .settings table .icon.user-group {
+        filter: invert(1) !important;
+    }
+
+    .menu-dropdown .menu-title {
+        background-image: var(--icon-user) !important;
+    }
+
+    .menu-dropdown .menu-indicator {
+        background-image: var(--icon-chevron-down) !important;
+    }
+
+    .menu-dropdown a.logout::before {
+        filter: invert(1) !important;
+    }
+
+    .menu-dropdown:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    table.sorted th.sort-primary::after,
+    table.sorted th.sort-primary.sort-descending::after {
+        filter: invert(1) !important;
+    }
+
+    /* -- Import page help icon — invert to dark -- */
+    .settings-view.import span.help::after {
+        filter: invert(1) !important;
+    }
+
+    /* -- Filter / search input — dark magnifier for light bg --
+       Can't invert() the input itself without inverting typed text too  */
+    .toolbar input.search-string,
+    .settings.section.sessions .filter input,
+    .settings.section.connectionHistory form.filter input.search-string,
+    .header .filter input {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='8.5' cy='8.5' r='5' stroke='%23000000' stroke-opacity='0.45' stroke-width='1.5'/%3E%3Cline x1='12.5' y1='12.5' x2='17' y2='17' stroke='%23000000' stroke-opacity='0.45' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+        background-size: 18px !important;
+        background-position: 5px 50% !important;
+    }
+
+    /* -- Sessions / History table row hover — dark bg -- */
+    .settings table.session-list tbody tr:hover td,
+    .settings table.history-list tbody tr:hover td {
+        background: rgba(0, 0, 0, 0.02) !important;
+    }
+
+    /* -- Pager — invert white-stroke chevrons to dark, adjust hover -- */
+    .pager .first-page.icon,
+    .pager .prev-page.icon,
+    .pager .next-page.icon,
+    .pager .last-page.icon {
+        filter: invert(1) !important;
+    }
+
+    .pager ul.page-numbers li.set-page:hover {
+        background: rgba(0, 0, 0, 0.06) !important;
+        color: var(--text) !important;
+    }
+
+    .pager .first-page.icon:not(.disabled):hover,
+    .pager .prev-page.icon:not(.disabled):hover,
+    .pager .next-page.icon:not(.disabled):hover,
+    .pager .last-page.icon:not(.disabled):hover {
+        background-color: rgba(0, 0, 0, 0.06) !important;
+    }
+}

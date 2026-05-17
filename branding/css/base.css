@@ -1,0 +1,89 @@
+/* -- Global base ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overflow-x: hidden;
+}
+
+html,
+body {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: none !important;
+    letter-spacing: -0.01em;
+    padding: 0;
+    padding-left: 16px;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar              { width: 6px; height: 6px; }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-thumb        { background: rgba(255,255,255,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover  { background: rgba(255,255,255,0.22); }
+
+/* Float-label behavior — login form only */
+.login-fields .labeled-field .field-header label       { display: none; }
+.login-fields .labeled-field.empty .field-header label { display: inline; }
+
+/* Restore label visibility inside settings/preferences (not the login form) */
+.settings .labeled-field .field-header label,
+.preferences .labeled-field .field-header label,
+.attributes .labeled-field .field-header label {
+    display: inline !important;
+}
+
+.app-name { text-transform: none !important; }
+
+
+/* ── Mobile / narrow-viewport overrides ─────────────────────────────────── */
+@media (max-width: 600px) {
+    /* Prevent any overflow from blowing out the viewport width */
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    /* Preferences page*/
+    .preferences {
+        width: 100% !important;
+        padding: 12px 12px 0 !important;
+    }
+
+    /* User / group edit page — same treatment */
+    .manage-user > div:not(.header):not(.page-tabs):not(.section),
+    .manage-user-group > div:not(.header):not(.page-tabs):not(.section) {
+        width: 100% !important;
+        padding: 12px 12px 80px !important;
+    }
+
+    /* Connection / connection-group edit page */
+    .manage-connection > *:not(.header),
+    .manage-connection-group > *:not(.header) {
+        width: 100% !important;
+    }
+}

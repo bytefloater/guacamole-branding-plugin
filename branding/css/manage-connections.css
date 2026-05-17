@@ -1,0 +1,503 @@
+/* -- Connections management ------------------------------------------------- */
+
+/* Toolbar layout — consistent across all settings pages */
+.settings .toolbar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 8px 13px !important;
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.settings .toolbar .action-buttons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin: 0 !important;
+}
+
+/* Guacamole uses <a class="button"> for toolbar actions, not <button> */
+/* Extra class specificity needed to beat Guacamole's a.add-connection.button rule */
+.settings .action-buttons a.button {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 31px !important;
+    padding: 0 8px !important;
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: none !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--transition), color var(--transition);
+    background-image: none !important;
+    justify-content: center;
+}
+
+.settings .action-buttons a.button:hover {
+    background: var(--surface-overlay) !important;
+    color: var(--text) !important;
+}
+
+/* Strip Guacamole's icon sprites from button pseudo-elements */
+.settings .action-buttons a.button::before,
+.settings .action-buttons a.button::after {
+    display: none !important;
+}
+
+/* New Connection / New User / New Group — primary CTA */
+.settings .action-buttons a.add-connection.button,
+.settings .action-buttons a.add-user.button,
+.settings .action-buttons a.add-user-group.button {
+    background: var(--accent) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+.settings .action-buttons a.add-connection.button:hover,
+.settings .action-buttons a.add-user.button:hover,
+.settings .action-buttons a.add-user-group.button:hover {
+    background: var(--accent-hover) !important;
+}
+
+/* Strip Guacamole's icon sprites from button pseudo-elements */
+.action-buttons a.button::before,
+.action-buttons a.button::after {
+    display: none !important;
+}
+
+/* Filter input — muted white magnifier, sized to match placeholder weight */
+.toolbar input.search-string {
+    background-image: var(--icon-search) !important;
+    background-repeat: no-repeat !important;
+    background-position: 5px 50% !important;
+    background-size: 18px !important;
+}
+
+/* -- Connection list icons — UniFi-style inline SVGs ----------------------- */
+
+/* Base reset for all type icons */
+.list-item .icon.type {
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    opacity: 0.65;
+}
+
+/* RDP / VNC / SPICE — monitor icon (settings page + home page) */
+a.settings-connection .icon.type,
+.list-item .connection .icon.type {
+    background-image: var(--icon-monitor) !important;
+}
+
+/* SSH / Telnet / Kubernetes — terminal icon (settings page + home page) */
+a.settings-connection .icon.type.ssh,
+a.settings-connection .icon.type.telnet,
+a.settings-connection .icon.type.kubernetes,
+.list-item .connection .icon.type.ssh,
+.list-item .connection .icon.type.telnet,
+.list-item .connection .icon.type.kubernetes {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Crect x='2' y='3' width='16' height='14' rx='1.5' stroke='%23fff' stroke-width='1.5'/%3E%3Cpath d='M6 8l3 2.5L6 13' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='11' y1='13' x2='15' y2='13' stroke='%23fff' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+
+/* Connection groups — folder icon (settings page + home page) */
+a.settings-connection-group .icon.type,
+.list-item .connection-group .icon.type {
+    background-image: var(--icon-folder) !important;
+}
+
+/* Expand / collapse chevron — replaces Guacamole's +/- sprite */
+.list-item .icon.expand {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M8 5l5 5-5 5' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 14px 14px !important;
+    opacity: 0.4;
+    transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Rotate chevron when the group is expanded */
+.list-item .connection.expanded .icon.expand {
+    transform: rotate(90deg);
+    opacity: 0.7;
+}
+
+/* -- Connection / Connection Group edit pages ------------------------------ */
+
+/* Center and constrain all direct children except the full-width header */
+.manage-connection > *:not(.header),
+.manage-connection-group > *:not(.header) {
+    display: block !important;
+    width: clamp(550px, calc(100% - 32px), 800px) !important;
+    box-sizing: border-box !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* First section — Name / Location / Protocol card */
+.manage-connection > .section:not(.connection-parameters),
+.manage-connection-group > .section {
+    background: var(--surface) !important;
+    border-left: 1px solid var(--border) !important;
+    border-right: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-top: none !important;
+    border-radius: 8px !important;
+    overflow: visible !important;
+    margin-top: 16px !important;
+}
+
+.manage-connection > .section:not(.connection-parameters)::before {
+    content: "CONNECTION";
+    display: block;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    margin: 0 -1px 0;
+}
+
+.manage-connection-group > .section::before {
+    content: "CONNECTION GROUP";
+    display: block;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    margin: 0 -1px 0;
+}
+
+/* Properties table */
+.manage-connection table.properties,
+.manage-connection-group table.properties {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+}
+
+.manage-connection table.properties th,
+.manage-connection-group table.properties th {
+    width: 45% !important;
+    padding: 10px 16px !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-right: none !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+}
+
+.manage-connection table.properties td,
+.manage-connection-group table.properties td {
+    width: 55% !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: middle !important;
+}
+
+.manage-connection table.properties tr:last-child th,
+.manage-connection table.properties tr:last-child td,
+.manage-connection-group table.properties tr:last-child th,
+.manage-connection-group table.properties tr:last-child td {
+    border-bottom: none !important;
+}
+
+.manage-connection table.properties th,
+.manage-connection table.properties td,
+.manage-connection-group table.properties th,
+.manage-connection-group table.properties td {
+    min-height: 52px !important;
+    height: 52px !important;
+}
+
+.manage-connection table.properties td input:not([type="checkbox"]):not([type="radio"]),
+.manage-connection table.properties td select,
+.manage-connection-group table.properties td input:not([type="checkbox"]):not([type="radio"]),
+.manage-connection-group table.properties td select {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Attributes section — spacing */
+.manage-connection > .attributes,
+.manage-connection-group > .attributes {
+    margin-top: 16px !important;
+    padding: 0 !important;
+}
+
+/* "Parameters" / section divider headings */
+.manage-connection > h2.header,
+.manage-connection-group > h2.header {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 0 !important;
+    margin: 24px 0 8px !important;
+}
+
+/* Connection parameters — card each .form */
+.manage-connection .connection-parameters {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.manage-connection .connection-parameters .form-group {
+    padding: 0 !important;
+}
+
+.manage-connection .connection-parameters .form {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-bottom: 16px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.manage-connection .connection-parameters h3.form-header {
+    background: var(--surface-raised) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 16px !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.manage-connection .connection-parameters .fields {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.manage-connection .connection-parameters .labeled-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 52px !important;
+}
+
+.manage-connection .connection-parameters .labeled-field:last-child {
+    border-bottom: none !important;
+}
+
+.manage-connection .connection-parameters .labeled-field .field-header {
+    display: block !important;
+    flex: 0 0 45% !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.manage-connection .connection-parameters .labeled-field > *:not(.field-header) {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.manage-connection .connection-parameters .labeled-field .form-field,
+.manage-connection .connection-parameters .labeled-field .text-field,
+.manage-connection .connection-parameters .labeled-field .select-field {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.manage-connection .connection-parameters .labeled-field input:not([type="checkbox"]):not([type="radio"]),
+.manage-connection .connection-parameters .labeled-field select,
+.manage-connection .connection-parameters .labeled-field textarea {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+.manage-connection .connection-parameters .labeled-field input[type="checkbox"],
+.manage-connection .connection-parameters .labeled-field input[type="radio"] {
+    display: block !important;
+    align-self: center !important;
+    margin: auto 0 !important;
+}
+
+/* -- Location chooser -------------------------------------------------------- */
+
+/* Ensure the chooser fills the table cell */
+.location-chooser {
+    display: block !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+/* Current-value pill — styled like an input */
+.location-chooser .location {
+    display: flex !important;
+    align-items: center !important;
+    height: 31px !important;
+    padding: 0 10px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    cursor: pointer !important;
+}
+
+.location-chooser .location:hover {
+    background: var(--surface-raised) !important;
+}
+
+/* Dropdown panel */
+.location-chooser .dropdown {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: 0 12px 16px -4px rgba(0, 0, 0, 0.25) !important;
+    min-width: 100% !important;
+    overflow: hidden !important;
+    z-index: 100 !important;
+    margin-top: 2px !important;
+}
+
+/* Each group row */
+.location-chooser .connection-group .caption {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    cursor: pointer !important;
+    color: var(--text) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    transition: background var(--transition) !important;
+}
+
+.location-chooser .connection-group .caption:hover {
+    background: var(--surface-overlay) !important;
+}
+
+/* Selected / active group */
+.location-chooser .connection-group.selected .caption,
+.location-chooser .connection-group.current .caption {
+    color: var(--accent) !important;
+    font-weight: 600 !important;
+}
+
+.caption .activeUserCount {
+    float: unset !important;
+    border: 1px solid var(--border);
+    border-radius: 99px; /* or whatever the pill definition is */
+    padding: 0.15em 0.45em;
+    background: var(--accent-subtle);
+    margin-right: unset !important;
+    margin-left: 0.5em;
+}
+
+/* Share Bubble for Connections */
+.jdbc-share-tag {
+    font-size: unset !important;
+    border: 1px solid var(--border);
+    border-radius: 99px; /* Pill appearnace */
+    padding: 0.15em 0.45em;
+    margin-left: 0.5em;
+}
+
+/* Expand icon — constrain to 16px */
+.location-chooser .icon.expand {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.5 !important;
+}
+
+/* Indent nested groups */
+.location-chooser .children {
+    padding-left: 16px !important;
+}
+
+/* Fixed action bar — same pattern as manage-user */
+.manage-connection .action-buttons,
+.manage-connection-group .action-buttons {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    gap: 8px !important;
+    z-index: 100 !important;
+    box-sizing: border-box !important;
+}
+
+/* Save = primary blue */
+.manage-connection .action-buttons button.save,
+.manage-connection-group .action-buttons button.save {
+    background: var(--accent) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+.manage-connection .action-buttons button.save:hover,
+.manage-connection-group .action-buttons button.save:hover {
+    background: var(--accent-hover) !important;
+}
+
+/* Bottom padding so content clears the fixed bar */
+.manage-connection > .section:last-of-type,
+.manage-connection > .attributes:last-of-type,
+.manage-connection > h2.header:last-of-type,
+.manage-connection-group > .section:last-of-type,
+.manage-connection-group > .attributes:last-of-type,
+.manage-connection-group > h2.header:last-of-type {
+    margin-bottom: 80px !important;
+}
+

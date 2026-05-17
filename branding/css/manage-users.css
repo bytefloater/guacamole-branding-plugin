@@ -1,0 +1,710 @@
+/* -- Users / Groups management table -------------------------------------- */
+
+/* Table chrome */
+.settings table.user-list,
+.settings table.user-group-list {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+/* Column headers */
+.settings table.user-list th,
+.settings table.user-group-list th {
+    background: var(--surface-raised) !important;
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 8px 12px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-strong) !important;
+}
+
+/* Data cells */
+.settings table.user-list td,
+.settings table.user-group-list td {
+    padding: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    vertical-align: middle !important;
+}
+
+/* Non-username cells (organisation, full name, last active) */
+.settings table.user-list td:not(.username),
+.settings table.user-group-list td:not(.name) {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    color: var(--text) !important;
+}
+
+/* Username/name cell — link fills the cell */
+.settings table.user-list td.username a,
+.settings table.user-group-list td.name a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    color: var(--text) !important;
+    font-size: 13px !important;
+    text-decoration: none !important;
+    transition: background var(--transition) !important;
+}
+
+.settings table.user-list td.username a:hover,
+.settings table.user-group-list td.name a:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: var(--text) !important;
+}
+
+/* Row hover */
+.settings table.user-list tbody tr:hover td,
+.settings table.user-group-list tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* User icon — white person SVG */
+.settings table .icon.user {
+    background-image: var(--icon-user) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    opacity: 0.55;
+}
+
+/* Sort indicators — replace Guacamole arrows with white stroke chevrons */
+table.sorted th.sort-primary::after {
+    background-image: var(--icon-chevron-down) !important;
+    opacity: 0.6;
+}
+
+table.sorted th.sort-primary.sort-descending::after {
+    background-image: var(--icon-chevron-up) !important;
+    opacity: 0.6;
+}
+
+/* Group icon — white group/people SVG */
+.settings table .icon.user-group {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='7' cy='7' r='2.8' stroke='%23ffffff' stroke-width='1.5'/%3E%3Ccircle cx='14' cy='7' r='2.2' stroke='%23ffffff' stroke-width='1.4'/%3E%3Cpath d='M1 17c0-2.761 2.686-5 6-5s6 2.239 6 5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M14 12c1.657 0 3 1.343 3 3' stroke='%23ffffff' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    opacity: 0.55;
+}
+
+
+/* -- Read-only / access-denied notice (empty state) ----------------------- */
+
+/* Strip the card only when the notice is the sole content (no form wrapper div present) */
+.manage-user:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) > .section:has(> p.notice),
+.manage-user-group:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) > .section:has(> p.notice) {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: calc(100vh - 88px) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.manage-user:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice,
+.manage-user-group:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    width: auto !important;
+    max-width: 320px !important;
+    line-height: 1.5 !important;
+}
+
+.manage-user:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice::before,
+.manage-user-group:not(:has(> div:not(.header):not(.page-tabs):not(.section):not(.ng-hide))) p.notice::before {
+    content: '' !important;
+    display: block !important;
+    width: 36px !important;
+    height: 36px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    background-position: center !important;
+    opacity: 0.9 !important;
+    flex-shrink: 0 !important;
+}
+
+/* -- User / Group edit page (manage-user, manage-user-group) -------------- */
+
+/* Content area padding */
+.manage-user > div:not(.header):not(.page-tabs):not(.section),
+.manage-user-group > div:not(.header):not(.page-tabs):not(.section) {
+    padding: 16px 16px 80px !important;
+    width: clamp(550px, 100%, 800px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Credentials card — synthetic "CREDENTIALS" header via ::before */
+.manage-user > div > .section:first-child,
+.manage-user-group > div > .section:first-child {
+    overflow: visible !important;
+}
+
+.manage-user > div > .section:first-child::before,
+.manage-user-group > div > .section:first-child::before {
+    content: "CREDENTIALS";
+    display: block;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    margin: -1px -1px 0;
+}
+
+/* Credentials table rows */
+.manage-user table.properties,
+.manage-user-group table.properties {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+}
+
+.manage-user table.properties th,
+.manage-user-group table.properties th {
+    width: 45% !important;
+    padding: 10px 16px !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-right: none !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+}
+
+.manage-user table.properties td,
+.manage-user-group table.properties td {
+    width: 55% !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: middle !important;
+}
+
+.manage-user table.properties tr:last-child th,
+.manage-user table.properties tr:last-child td,
+.manage-user-group table.properties tr:last-child th,
+.manage-user-group table.properties tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Fix narrow password inputs in credentials table */
+.manage-user table.properties td input:not([type="checkbox"]):not([type="radio"]),
+.manage-user-group table.properties td input:not([type="checkbox"]):not([type="radio"]) {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Timezone — stack the two selects with a small gap */
+.attributes .time-zone-field {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+}
+
+.attributes .time-zone-field select {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+/* Date / time picker calendar & clock icons — invert in dark mode */
+@media (prefers-color-scheme: dark) {
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(1) opacity(0.5);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(0) opacity(0.5);
+    }
+}
+
+/* Profile / Account Restrictions — give each .form a card */
+.attributes .form {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    margin-bottom: 16px !important;
+    overflow: hidden !important;
+}
+
+/* Card header inside .form */
+.attributes .form h3.form-header {
+    background: var(--surface-raised) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 16px !important;
+    margin: 0 !important;
+    box-shadow: none;
+}
+
+/* Override Guacamole's display:table layout — constrain to card width */
+.attributes .form {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.attributes .form .fields {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Each row: flex so label sits left, input sits right */
+.attributes .labeled-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 10px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.attributes .labeled-field:last-child {
+    border-bottom: none !important;
+}
+
+.attributes .labeled-field .field-header {
+    display: block !important;
+    flex: 0 0 45% !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Flex filler — the form-field wrapper takes remaining width */
+.attributes .labeled-field > *:not(.field-header) {
+    flex: 1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Force intermediate wrappers (form-field, text-field) to be full-width blocks */
+.attributes .labeled-field .form-field,
+.attributes .labeled-field .text-field,
+.attributes .labeled-field .select-field,
+.attributes .labeled-field .date-field,
+.attributes .labeled-field .time-field {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.attributes .labeled-field input:not([type="checkbox"]):not([type="radio"]),
+.attributes .labeled-field select,
+.attributes .labeled-field textarea {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+}
+
+/* Permissions — raised card header that connects to the .section below */
+.system-permissions > h2.header {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: none !important;
+    border-radius: 8px 8px 0 0 !important;
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 10px 16px !important;
+    margin: 0 !important;
+}
+
+.system-permissions > .section {
+    border-radius: 0 0 8px 8px !important;
+    margin-top: 0 !important;
+}
+
+/* Groups section header bar — matches Connections header styling */
+.related-objects > .header {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: none !important;
+    border-radius: 8px 8px 0 0 !important;
+    min-height: 40px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    padding-right: 0 !important;
+}
+
+.related-objects > .header h2 {
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    flex: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.related-objects > .section {
+    border: 1px solid var(--border) !important;
+    border-radius: 0 0 8px 8px !important;
+}
+
+/* Separator between selected-pills row and the pick-list */
+.related-objects .abbreviated-related-objects {
+    border-bottom: 1px solid var(--border) !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    min-height: 44px !important;
+    box-sizing: border-box !important;
+    margin: 0;
+}
+
+/* Collapse/expand chevron — replace Guacamole's triangle imgs.
+   No display override so ng-hide (display:none !important) still works. */
+.related-objects .abbreviated-related-objects img.collapse {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+    transform: rotate(0deg) !important;
+}
+
+.related-objects .abbreviated-related-objects img.expand {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+    transform: rotate(-90deg) !important;
+}
+
+/* Selected group — pill style */
+.related-objects .abbreviated-related-objects ul {
+    display: contents !important;
+}
+
+.related-objects .abbreviated-related-objects li {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    background: rgba(59, 130, 246, 0.08) !important;
+    border: 1px solid rgba(59, 130, 246, 0.28) !important;
+    border-radius: 100px !important;
+    padding: 2px 8px 2px 5px !important;
+    list-style: none !important;
+}
+
+.related-objects .abbreviated-related-objects li label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    cursor: pointer !important;
+    color: var(--text) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    user-select: none !important;
+}
+
+/* X remove button — replace Guacamole's red X img */
+.related-objects .abbreviated-related-objects li label img.remove {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") !important;
+    width: 12px !important;
+    height: 12px !important;
+    display: block !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    opacity: 0.6 !important;
+    transition: opacity 0.15s !important;
+}
+
+.related-objects .abbreviated-related-objects li label img.remove:hover {
+    opacity: 1 !important;
+}
+
+
+
+/* Pick-list rows — checkbox + label alignment */
+
+.related-objects .all-related-objects {
+    border-top: none !important;
+}
+.related-objects .abbreviated-related-objects p.no-related-objects {
+    margin: 0;
+}
+.related-objects .abbreviated-related-objects ul,
+.related-objects .all-related-objects ul {
+    margin: 0;
+    min-height: 40px;
+    align-content: center;
+}
+.related-objects .all-related-objects li {
+    display: flex !important;
+    align-items: center !important;
+    padding: 6px 12px !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.related-objects .all-related-objects li:last-child {
+    border-bottom: none !important;
+}
+
+.related-objects .all-related-objects li label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+    color: var(--text) !important;
+}
+
+.related-objects .all-related-objects li label input[type="checkbox"] {
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+/* Connections section header bar */
+.connection-permissions > .header.tabbed {
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border) !important;
+    /* border-bottom: none !important; */
+    border-radius: 8px 8px 0 0 !important;
+    min-height: 40px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    padding-right: 0 !important;
+}
+
+.connection-permissions > .header.tabbed h2 {
+    color: var(--text) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    flex: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Remove top radius on .section when it follows the connections header */
+.connection-permissions > .section {
+    border-radius: 0 0 8px 8px !important;
+}
+
+.connection-permissions > .section-tabs + .section {
+    border-radius: 0 0 8px 8px !important;
+}
+
+/* Connection section-tabs (Current / All Connections) */
+.connection-permissions .section-tabs {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.connection-permissions .section-tabs ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    border-bottom: none !important;
+}
+
+.connection-permissions .section-tabs ul li {
+    list-style: none !important;
+    display: flex !important;
+}
+
+.connection-permissions .section-tabs ul li a {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 16px !important;
+    height: 36px !important;
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent !important;
+    background: transparent !important;
+    white-space: nowrap !important;
+    transition: color var(--transition), border-color var(--transition) !important;
+}
+
+.connection-permissions .section-tabs ul li a:hover {
+    color: var(--text) !important;
+}
+
+.connection-permissions .section-tabs ul li a.current {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid var(--accent) !important;
+}
+
+/* Connection list rows — center and space checkbox/icon within the inline container */
+.connection-permissions .connection-permission.choice,
+.connection-permissions .connection-group-permission.choice {
+    display: inline-flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    gap: 8px !important;
+}
+
+/* Ensure the checkbox itself doesn't add extra margin */
+.connection-permissions .connection-permission.choice input[type="checkbox"],
+.connection-permissions .connection-group-permission.choice input[type="checkbox"] {
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Action buttons bar — margin-bottom: 0 overrides Guacamole's .manage rule (margin-bottom: 1em) */
+.manage-user .action-buttons,
+.manage-user-group .action-buttons {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    gap: 8px !important;
+    z-index: 100 !important;
+}
+
+/* Page-tab status icons (checkmark = linked, lock = read-only) — fix padding
+   and invert for dark mode since Guacamole's SVGs are dark-colored */
+.manage-user .page-tabs .page-list li.linked a[href],
+.manage-user .page-tabs .page-list li.read-only a[href],
+.manage-user .page-tabs .page-list li.unlinked a[href],
+.manage-user-group .page-tabs .page-list li.linked a[href],
+.manage-user-group .page-tabs .page-list li.read-only a[href],
+.manage-user-group .page-tabs .page-list li.unlinked a[href] {
+    position: relative !important;
+    padding-right: 2em !important;
+}
+
+.manage-user .page-tabs .page-list li a[href]::before,
+.manage-user-group .page-tabs .page-list li a[href]::before {
+    background-size: 14px 14px !important;
+    background-position: center right 6px !important;
+}
+
+/* Uniform row height — table rows and flex rows */
+.manage-user table.properties th,
+.manage-user table.properties td,
+.manage-user-group table.properties th,
+.manage-user-group table.properties td {
+    min-height: 52px !important;
+    height: 52px !important;
+}
+
+.attributes .labeled-field {
+    min-height: 52px !important;
+}
+
+/* Checkbox centering in table cells */
+.manage-user table.properties td input[type="checkbox"],
+.manage-user table.properties td input[type="radio"],
+.manage-user-group table.properties td input[type="checkbox"],
+.manage-user-group table.properties td input[type="radio"] {
+    display: block !important;
+    margin: auto 0 !important;
+}
+
+.manage-user .page-tabs .page-list li.linked a[href]:before,
+.manage-user .page-tabs .page-list li.read-only a[href]:before {
+    background-image: none !important;
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 14px 14px;
+    mask-size: 14px 14px;
+    -webkit-mask-position: center right 6px;
+    mask-position: center right 6px;
+}
+.manage-user .page-tabs .page-list li.linked a[href]:before {
+    -webkit-mask-image: var(--icon-check);
+    mask-image: var(--icon-check);
+}
+.manage-user .page-tabs .page-list li.read-only a[href]:before {
+    -webkit-mask-image: var(--icon-lock);
+    mask-image: var(--icon-lock);
+}
+
+/* Checkbox centering in flex rows */
+.attributes .labeled-field input[type="checkbox"],
+.attributes .labeled-field input[type="radio"] {
+    display: block !important;
+    align-self: center !important;
+    margin: auto 0 !important;
+}

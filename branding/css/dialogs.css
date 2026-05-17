@@ -1,0 +1,308 @@
+/* -- Dialogs / guac-modal --------------------------------------------------- */
+
+/* Full-viewport scrim — centres the card */
+guac-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    z-index: 9000 !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
+}
+
+.modal-contents {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 460px !important;
+}
+
+/* -- Card ------------------------------------------------------------------- */
+guac-modal .notification {
+    width: 100% !important;
+    max-width: 460px !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+/* -- Title bar -------------------------------------------------------------- */
+guac-modal .notification .title-bar {
+    background: var(--surface-raised) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 14px 20px !important;
+}
+
+guac-modal .notification .title-bar .title {
+    color: var(--text) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+/* -- Body ------------------------------------------------------------------- */
+guac-modal .notification .body {
+    padding: 20px 20px 16px !important;
+    background: var(--surface) !important;
+}
+
+/* Message text */
+guac-modal .notification .body p.text {
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    text-align: center !important;
+}
+
+/* Countdown timer (e.g. "Reconnecting in 14 seconds...") */
+guac-modal .notification .body p.countdown-text {
+    color: var(--text-faint) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    margin: 8px 0 0 !important;
+}
+
+/* Progress bar */
+guac-modal .notification .progress {
+    height: 3px !important;
+    background: var(--border) !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    margin: 14px 0 0 !important;
+}
+
+guac-modal .notification .progress .bar {
+    height: 100% !important;
+    background: var(--accent) !important;
+    border-radius: 2px !important;
+    transition: width 1s linear !important;
+}
+
+/* -- Button footer (.buttons is the actual class Guacamole uses) ------------ */
+guac-modal .notification .buttons {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    padding: 14px 20px !important;
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    margin: 0 !important;
+}
+
+guac-modal .notification .buttons button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 31px !important;
+    padding: 0 14px !important;
+    background: var(--surface-raised) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    cursor: pointer !important;
+    transition: background var(--transition), border-color var(--transition) !important;
+}
+
+guac-modal .notification .buttons button:hover {
+    background: var(--surface-overlay) !important;
+}
+
+/* Strip Guacamole sprite pseudo-elements from notification buttons */
+guac-modal .notification .buttons button::before,
+guac-modal .notification .buttons button::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Primary / only button → blue */
+guac-modal .notification .buttons button.acknowledge,
+guac-modal .notification .buttons button:only-child {
+    background: var(--accent) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+guac-modal .notification .buttons button.acknowledge:hover,
+guac-modal .notification .buttons button:only-child:hover {
+    background: var(--accent-hover) !important;
+}
+
+/* -- Colour variants -------------------------------------------------------- */
+
+/* Error */
+guac-modal .notification.error {
+    border-color: var(--error-border) !important;
+}
+guac-modal .notification.error .title-bar {
+    background: rgba(224, 57, 57, 0.12) !important;
+    border-bottom-color: var(--error-border) !important;
+}
+guac-modal .notification.error .title-bar .title {
+    color: var(--error-text) !important;
+}
+
+/* Warning */
+guac-modal .notification.warning {
+    border-color: rgba(245, 158, 11, 0.30) !important;
+}
+guac-modal .notification.warning .title-bar {
+    background: rgba(245, 158, 11, 0.10) !important;
+    border-bottom-color: rgba(245, 158, 11, 0.30) !important;
+}
+guac-modal .notification.warning .title-bar .title {
+    color: #f59e0b !important;
+}
+
+/* Connecting / info */
+guac-modal .notification.connecting {
+    border-color: rgba(0, 111, 255, 0.20) !important;
+}
+guac-modal .notification.connecting .title-bar {
+    background: rgba(0, 111, 255, 0.08) !important;
+    border-bottom-color: rgba(0, 111, 255, 0.20) !important;
+}
+guac-modal .notification.connecting .title-bar .title {
+    color: var(--accent) !important;
+}
+
+/* -- Generic .dialog / .modal fallback ------------------------------------- */
+.dialog,
+.modal {
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75) !important;
+    color: var(--text) !important;
+}
+
+.dialog-header, .modal-header {
+    background: var(--surface-raised) !important;
+    border-bottom: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 14px 20px !important;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+}
+
+.dialog-body, .dialog-content, .modal-body {
+    background: var(--surface) !important;
+    color: var(--text-muted) !important;
+    font-size: 13px !important;
+    padding: 20px !important;
+}
+
+.dialog-footer, .modal-footer {
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border) !important;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+    padding: 14px 20px !important;
+}
+
+
+/* -- Tabs ------------------------------------------------------------------- */
+.tab-container {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.tab {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px;
+    transition: color var(--transition);
+}
+
+.tab:hover {
+    color: var(--text) !important;
+}
+
+.tab.selected,
+.tab.active {
+    color: var(--accent) !important;
+    border-bottom: 2px solid var(--accent) !important;
+    font-weight: 700;
+}
+
+
+/* -- Tables ----------------------------------------------------------------- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    background: var(--surface-raised) !important;
+    color: var(--text-muted) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 10px 12px;
+}
+
+td {
+    background: transparent !important;
+    color: var(--text) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 10px 12px;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+
+/* -- Inline notifications (outside guac-modal, e.g. toast banners) --------- */
+.notification:not(guac-modal .notification) {
+    color: var(--text) !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    font-family: "Inter", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+.notification.error:not(guac-modal .notification) {
+    background: var(--error-bg) !important;
+    border-color: var(--error-border) !important;
+    color: var(--error-text) !important;
+}
+
+.notification.warning:not(guac-modal .notification) {
+    background: rgba(245, 158, 11, 0.10) !important;
+    border-color: rgba(245, 158, 11, 0.30) !important;
+    color: #f59e0b !important;
+}
+
+.notification.success:not(guac-modal .notification) {
+    background: var(--success-bg) !important;
+    border-color: var(--success-border) !important;
+    color: #4ade80 !important;
+}

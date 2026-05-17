@@ -7,7 +7,17 @@
     ],
     "css": [
         "css/themes.css",
-        "css/login-override.css",
+        "css/base.css",
+        "css/header.css",
+        "css/home.css",
+        "css/forms.css",
+        "css/dialogs.css",
+        "css/settings.css",
+        "css/login.css",
+        "css/import.css",
+        "css/manage-users.css",
+        "css/manage-connections.css",
+        "css/light-mode.css",
         "css/font-kit.css"
     ],
     "js": [
