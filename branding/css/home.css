@@ -178,3 +178,24 @@
     border-radius: var(--radius-md) !important;
     color: var(--text) !important;
 }
+
+.caption .activeUserCount {
+    float: unset !important;
+    border: 1px solid var(--border);
+    border-radius: 99px; /* or whatever the pill definition is */
+    padding: 0.15em 0.45em;
+    background: var(--accent-subtle);
+    margin-right: unset !important;
+    margin-left: 0.5em;
+    color: var(--text-faint);
+}
+
+/* Share Bubble for Connections */
+.jdbc-share-tag {
+    font-size: unset !important;
+    border: 1px solid var(--border);
+    border-radius: 99px !important; /* Pill appearnace */
+    padding: 0.15em 0.45em !important;
+    margin-left: 0.5em;
+    background: var(--accent);
+}

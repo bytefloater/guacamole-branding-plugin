@@ -424,25 +424,6 @@ a.settings-connection-group .icon.type,
     font-weight: 600 !important;
 }
 
-.caption .activeUserCount {
-    float: unset !important;
-    border: 1px solid var(--border);
-    border-radius: 99px; /* or whatever the pill definition is */
-    padding: 0.15em 0.45em;
-    background: var(--accent-subtle);
-    margin-right: unset !important;
-    margin-left: 0.5em;
-}
-
-/* Share Bubble for Connections */
-.jdbc-share-tag {
-    font-size: unset !important;
-    border: 1px solid var(--border);
-    border-radius: 99px; /* Pill appearnace */
-    padding: 0.15em 0.45em;
-    margin-left: 0.5em;
-}
-
 /* Expand icon — constrain to 16px */
 .location-chooser .icon.expand {
     width: 16px !important;
