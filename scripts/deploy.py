@@ -4,6 +4,7 @@
 import json
 import logging
 import os
+import shlex
 import sys
 import zipfile
 from typing import Optional
@@ -87,10 +88,12 @@ class RemoteServerSession:
             self._client.close()
             self._client = None
 
-    def run_command(self, command: str) -> None:
-        """Run a shell command on the remote host; exits on non-zero return code."""
+    def run_command(self, *args: str) -> None:
+        """Run a command on the remote host; args are shell-quoted via shlex.join."""
         assert self._client is not None, "Not connected"
-        _, stdout, stderr = self._client.exec_command(command)
+        command = shlex.join(args)
+        # Command is built via shlex.join; args are caller-controlled, not user-supplied.
+        _, stdout, stderr = self._client.exec_command(command)  # nosec B601
         exit_code = stdout.channel.recv_exit_status()
         out = stdout.read().decode().strip()
         err = stderr.read().decode().strip()
@@ -167,7 +170,7 @@ def main() -> None:
         uploaded = session.upload(archive_path, remote_path, force_overwrite=force_overwrite)
         if uploaded:
             log.info("Restarting services ...")
-            session.run_command("systemctl restart guacd tomcat9")
+            session.run_command("systemctl", "restart", "guacd", "tomcat9")
         else:
             log.info("No upload performed; skipping service restart.")
 

@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+
+jobs:
+  frontend:
+    name: CSS & JS lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Lint Tools
+        run: |
+          npm init -y
+          npm install stylelint@16 stylelint-config-recommended@14 eslint@9 @eslint/js@9 globals@15
+      - name: Lint CSS
+        run: |
+          cat > .stylelintrc.json << 'EOF'
+          {
+            "extends": ["stylelint-config-recommended"],
+            "rules": {
+              "at-rule-no-unknown": [true, {"ignoreAtRules": ["character-variant", "styleset"]}],
+              "no-descending-specificity": null,
+              "no-duplicate-selectors": null
+            }
+          }
+          EOF
+          npx stylelint "branding/css/**/*.css"
+      - name: Lint JavaScript
+        run: |
+          cat > eslint.config.cjs << 'EOF'
+          const js = require('@eslint/js');
+          const globals = require('globals');
+          module.exports = [
+            js.configs.recommended,
+            {
+              languageOptions: {
+                ecmaVersion: 2017,
+                sourceType: 'script',
+                globals: { ...globals.browser, angular: 'readonly' },
+              },
+              rules: { 'no-console': 'off' },
+            },
+          ];
+          EOF
+          npx eslint branding/js/
+
+  manifest:
+    name: Manifest Integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python scripts/check_manifest.py
+
+  python:
+    name: Python Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install flake8 bandit pip-audit
+      - name: Syntax & Style (flake8)
+        run: flake8 scripts/ --max-line-length=120 --extend-ignore=E221
+      - name: Security Scan (bandit)
+        run: bandit -r scripts/ -ll --skip B507
+      - name: Dependency Audit (pip-audit)
+        run: pip-audit -r requirements.txt
