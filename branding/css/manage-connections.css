@@ -91,7 +91,14 @@
     opacity: 0.65;
 }
 
-/* RDP / VNC / SPICE — monitor icon (settings page + home page) */
+/* Connection groups — folder icon (settings page + home page) */
+a.settings-connection-group .icon.type,
+.list-item .connection-group .icon.type {
+    background-image: var(--icon-folder) !important;
+}
+
+/* RDP / VNC / SPICE — monitor icon; must come after the group rule so connections
+   inside groups win (equal specificity, last rule takes precedence) */
 a.settings-connection .icon.type,
 .list-item .connection .icon.type {
     background-image: var(--icon-monitor) !important;
@@ -105,12 +112,6 @@ a.settings-connection .icon.type.kubernetes,
 .list-item .connection .icon.type.telnet,
 .list-item .connection .icon.type.kubernetes {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Crect x='2' y='3' width='16' height='14' rx='1.5' stroke='%23fff' stroke-width='1.5'/%3E%3Cpath d='M6 8l3 2.5L6 13' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='11' y1='13' x2='15' y2='13' stroke='%23fff' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
-}
-
-/* Connection groups — folder icon (settings page + home page) */
-a.settings-connection-group .icon.type,
-.list-item .connection-group .icon.type {
-    background-image: var(--icon-folder) !important;
 }
 
 /* Expand / collapse chevron — replaces Guacamole's +/- sprite */
